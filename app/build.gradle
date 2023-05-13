@@ -40,31 +40,31 @@ android {
     }
     /** Get API_KEY from local.properties */
 //     Gradle Properties
-//    def propertiesGradle = new Properties()
-//    propertiesGradle.load(project.rootProject.file('gradle.properties').newDataInputStream())
-//    def apiKey = propertiesGradle.getProperty('KEY_API_MOVIE_TMDB')
-//    if (apiKey != null && !apiKey.isEmpty()) {
-//        android.defaultConfig.buildConfigField "String", "ACCESS_KEY_GRADLE", "\"${apiKey}\""
-//        println "API key set as build config field: ACCESS_KEY_GRADLE = ${apiKey}"
-//    } else {
-//        println "API key not found or empty"
-//    }
+    def propertiesGradle = new Properties()
+    propertiesGradle.load(project.rootProject.file('gradle.properties').newDataInputStream())
+    def apiKey = propertiesGradle.getProperty('KEY_API_MOVIE_TMDB_GRADLE')
+    if (apiKey != null && !apiKey.isEmpty()) {
+        android.defaultConfig.buildConfigField "String", "ACCESS_KEY_TBDB", "\"${apiKey}\""
+        println "API key set as build config field: ACCESS_KEY_GRADLE = ${apiKey}"
+    } else {
+        println "API key not found or empty"
+    }
 
 //     Local Properties
-    def propertiesProperties = new Properties()
-    def localPropertiesFile = rootProject.file("local.properties")
-    if (localPropertiesFile.exists()) {
-        propertiesProperties.load(new FileInputStream(localPropertiesFile))
-        if (propertiesProperties.containsKey('KEY_API_MOVIE_TMDB')) {
-            def apiKey = propertiesProperties.getProperty('KEY_API_MOVIE_TMDB')
-            println "API key: $apiKey"
-            android.defaultConfig.buildConfigField "String", "ACCESS_KEY_TBDB", "\"${apiKey}\""
-        } else {
-            println "API key not found"
-        }
-    } else {
-        println "local.properties file not found"
-    }
+//    def propertiesProperties = new Properties()
+//    def localPropertiesFile = rootProject.file("local.properties")
+//    if (localPropertiesFile.exists()) {
+//        propertiesProperties.load(new FileInputStream(localPropertiesFile))
+//        if (propertiesProperties.containsKey('KEY_API_MOVIE_TMDB')) {
+//            def apiKey = propertiesProperties.getProperty('KEY_API_MOVIE_TMDB')
+//            println "API key: $apiKey"
+//            android.defaultConfig.buildConfigField "String", "ACCESS_KEY_TBDB", "\"${apiKey}\""
+//        } else {
+//            println "API key not found"
+//        }
+//    } else {
+//        println "local.properties file not found"
+//    }
 }
 
 dependencies {
