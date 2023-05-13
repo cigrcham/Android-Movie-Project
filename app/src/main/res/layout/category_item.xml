@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/category_container"
+    android:layout_width="130dp"
+    android:layout_height="40dp"
+    android:padding="3dp">
+
+    <ImageView
+        android:id="@+id/icon_status"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="6dp"
+        android:src="@drawable/icon_dot"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/todo"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/title_category"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="4dp"
+        android:gravity="center"
+        android:paddingEnd="4dp"
+        android:text="@string/category"
+        android:textAlignment="center"
+        android:textColor="#757575"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/icon_status"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry,VisualLintBounds" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

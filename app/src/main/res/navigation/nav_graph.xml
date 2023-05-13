@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.androidmoviesproject.ui.view.HomeFragment">
+        <action
+            android:id="@+id/action_homeFragment_to_detailScreen"
+            app:destination="@id/detailScreen" />
+        <action
+            android:id="@+id/action_homeFragment_to_notificationScreen"
+            app:destination="@id/notificationScreen" />
+        <action
+            android:id="@+id/action_homeFragment_to_findMoveScreen"
+            app:destination="@id/findMoveScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailScreen"
+        android:name="com.example.androidmoviesproject.ui.view.DetailScreen">
+        <argument
+            android:name="value"
+            android:defaultValue="-1"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/findMoveScreen"
+        android:name="com.example.androidmoviesproject.ui.view.SearchScreen"
+        android:label="fragment_find_move_screen"
+        tools:layout="@layout/fragment_search_screen" >
+        <action
+            android:id="@+id/action_findMoveScreen_to_detailScreen"
+            app:destination="@id/detailScreen" />
+        <action
+            android:id="@+id/action_findMoveScreen_to_notificationScreen"
+            app:destination="@id/notificationScreen" />
+        <action
+            android:id="@+id/action_findMoveScreen_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/notificationScreen"
+        android:name="com.example.androidmoviesproject.ui.view.NotificationScreen"
+        android:label="fragment_notification_screen"
+        tools:layout="@layout/fragment_notification_screen" >
+        <action
+            android:id="@+id/action_notificationScreen_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_notificationScreen_to_detailScreen"
+            app:destination="@id/detailScreen" />
+    </fragment>
+</navigation>

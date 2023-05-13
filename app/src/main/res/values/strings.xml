@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Movies</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="movie_name">Movie Name</string>
+    <string name="movie_produce">Movie Produce</string>
+    <string name="movie_users">Movie Users Watched</string>
+    <string name="star">Star</string>
+    <string name="movie_year">Movie Year</string>
+    <string name="cigrcham">Cigrcham</string>
+    <string name="notification">Notification</string>
+    <string name="search">Search</string>
+    <string name="description_movie">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex...</string>
+    <string name="welcome">Welcome</string>
+    <string name="for_you">For you</string>
+    <string name="trending">Trending</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="profile">My Profile</string>
+    <string name="home">Home</string>
+    <string name="todo">TODO</string>
+    <string name="category">Category</string>
+    <string name="name_actor">Name Actor</string>
+</resources>

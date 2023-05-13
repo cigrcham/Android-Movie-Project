@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+     >
+    <item
+        android:id="@+id/profile_menu"
+        android:contentDescription="@string/profile"
+        android:icon="@drawable/my_profile"
+        android:title="@string/profile"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/message_menu"
+        android:contentDescription="Message"
+        android:icon="@drawable/message"
+        android:title="Message"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/search_menu"
+        android:contentDescription="@string/search"
+        android:icon="@drawable/search_icon"
+        android:title="@string/search"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/notification_menu"
+        android:contentDescription="@string/notification"
+        android:icon="@drawable/notification_icon"
+        android:title="@string/notification"
+        app:showAsAction="always" />
+
+    <item android:title="Language">
+        <menu>
+            <item
+                android:id="@+id/vietName_menu"
+                android:contentDescription="Việt Nam"
+                android:icon="@drawable/vietnam"
+                android:title="Việt Nam"
+                app:showAsAction="always" />
+            <item
+                android:id="@+id/english_menu"
+                android:contentDescription="English"
+                android:icon="@drawable/englist_icon"
+                android:title="English"
+                app:showAsAction="always" />
+        </menu>
+    </item>
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/logout_menu"
+                android:contentDescription="Log out"
+                android:icon="@drawable/log_out"
+                android:title="Log out"
+                app:showAsAction="always" />
+        </menu>
+    </item>
+
+</menu>

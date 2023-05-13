@@ -1,0 +1,36 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.AndroidMoviesProject" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Original AppCompat attributes. -->
+        <item name="colorPrimary">@color/my_app_primary_color</item>
+        <item name="colorSecondary">@color/my_app_secondary_color</item>
+        <item name="android:colorBackground">@color/my_app_background_color</item>
+        <item name="colorError">@color/my_app_error_color</item>
+        <item name="android:statusBarColor">#292929</item>
+
+    </style>
+
+
+    <style name="circleImage" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="trendingImage" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10%</item>
+    </style>
+
+    <style name="detailImage" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10%</item>
+    </style>
+
+    <style name="listCategoryItem" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
+</resources>
