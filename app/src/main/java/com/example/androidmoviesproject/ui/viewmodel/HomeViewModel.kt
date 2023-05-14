@@ -1,6 +1,5 @@
 package com.example.androidmoviesproject.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidmoviesproject.data.model.ModelMovie
@@ -15,11 +14,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
-    private val TAG: String = this::class.java.simpleName
     init {
-            getTrendingData()
-            getForYouData()
+        getTrendingData()
+        getForYouData()
     }
+
     private val _trendData: MutableStateFlow<List<ModelMovie>?> = MutableStateFlow(null)
     fun trendingData(): StateFlow<List<ModelMovie>?> = _trendData
     fun getTrendingData(page: Int = 1) {
@@ -29,11 +28,9 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
                 when (it) {
                     is StateResult.Success<*> -> {
                         listMovies.add(it.value as ModelMovie)
-                        Log.d(TAG, "trendingData: ${it.value}")
                     }
 
                     is StateResult.Error -> {
-                        Log.d(TAG, "trendingData: Trending Data Error!")
                     }
                 }
             }
@@ -50,11 +47,9 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
                 when (it) {
                     is StateResult.Success<*> -> {
                         listMovies.add(it.value as ModelMovie)
-                        Log.d(TAG, "forYouData: ${it.value}")
                     }
 
                     is StateResult.Error -> {
-                        Log.d(TAG, "forYouData: For You Data Error!")
                     }
                 }
             }
@@ -71,11 +66,9 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
                 when (it) {
                     is StateResult.Success<*> -> {
                         listMovies.add(it.value as ModelMovie)
-                        Log.d(TAG, "getNowPlayingData: ${it.value}")
                     }
 
                     is StateResult.Error -> {
-                        Log.d(TAG, "getNowPlayingData: For You Data Error!")
                     }
                 }
             }
@@ -92,11 +85,9 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
                 when (it) {
                     is StateResult.Success<*> -> {
                         listMovies.add(it.value as ModelMovie)
-                        Log.d(TAG, "getPopularMovieData: ${it.value}")
                     }
 
                     is StateResult.Error -> {
-                        Log.d(TAG, "getPopularMovieData: For You Data Error!")
                     }
                 }
             }
@@ -113,11 +104,9 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
                 when (it) {
                     is StateResult.Success<*> -> {
                         listMovies.add(it.value as ModelMovie)
-                        Log.d(TAG, "getUpComingData: ${it.value}")
                     }
 
                     is StateResult.Error -> {
-                        Log.d(TAG, "forYouData: For You Data Error!")
                     }
                 }
             }

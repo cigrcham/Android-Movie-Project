@@ -23,7 +23,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailScreen : Fragment() {
-    private val TAG: String = this::class.java.simpleName
     private lateinit var binding: FragmentDetailScreenBinding
     private val viewModel: DetailViewModel by viewModels()
     override fun onCreateView(
@@ -38,7 +37,6 @@ class DetailScreen : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val movieId = args.value
-        Log.d(TAG, "onViewCreated: $movieId")
         if (movieId != null) {
             viewModel.getDetailMovie(movieId = movieId, data = {
                 setUpView(it)

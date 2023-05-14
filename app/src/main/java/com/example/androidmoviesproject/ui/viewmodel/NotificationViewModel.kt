@@ -14,8 +14,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NotificationViewModel @Inject constructor() : ViewModel() {
-    private val TAG: String = this::class.java.simpleName
-
     init {
         getNotification()
     }
@@ -26,7 +24,6 @@ class NotificationViewModel @Inject constructor() : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             val notifyFirebase = NotificationFirebase()
             notifyFirebase.getData {
-                Log.d(TAG, "getNotification: $it")
                 if (it != null) {
                     _notifyData.postValue(it)
                 }

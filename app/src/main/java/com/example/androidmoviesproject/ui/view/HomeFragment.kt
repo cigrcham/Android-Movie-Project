@@ -34,9 +34,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class HomeFragment : Fragment(), ItemClicked, OnNavigationItemSelectedListener {
     private lateinit var binding: FragmentHomeBinding
-
     private val viewModel: HomeViewModel by viewModels()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {

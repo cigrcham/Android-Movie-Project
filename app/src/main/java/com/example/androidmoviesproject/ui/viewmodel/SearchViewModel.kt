@@ -15,9 +15,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
-    private val TAG: String = this::class.java.simpleName
-
-
     private val _recommendData: MutableStateFlow<List<ModelMovie>?> = MutableStateFlow(null)
     fun recommendData(): StateFlow<List<ModelMovie>?> = _recommendData
     fun getRecommendData(page: Int = 1) {
@@ -27,11 +24,9 @@ class SearchViewModel @Inject constructor(private val repository: Repository) : 
                 when (it) {
                     is StateResult.Success<*> -> {
                         listMovies.add(it.value as ModelMovie)
-                        Log.d(TAG, "forYouData: ${it.value}")
                     }
 
                     is StateResult.Error -> {
-                        Log.d(TAG, "forYouData: For You Data Error!")
                     }
                 }
             }
@@ -50,11 +45,9 @@ class SearchViewModel @Inject constructor(private val repository: Repository) : 
                 when (it) {
                     is StateResult.Success<*> -> {
                         listMovies.add(it.value as ModelMovie)
-                        Log.d(TAG, "Search Movie: ${it.value}")
                     }
 
                     is StateResult.Error -> {
-                        Log.d(TAG, "Search Movie: Search Data Error!")
                     }
                 }
             }

@@ -22,7 +22,6 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class NotificationScreen : Fragment() {
-    private val TAG: String = this::class.java.simpleName
     private lateinit var binding: FragmentNotificationScreenBinding
     private val viewModel: NotificationViewModel by viewModels()
     override fun onCreateView(
