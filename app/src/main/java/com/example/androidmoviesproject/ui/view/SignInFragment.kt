@@ -11,9 +11,6 @@ import com.example.androidmoviesproject.databinding.FragmentSignInBinding
 
 class SignInFragment : Fragment() {
     private lateinit var binding: FragmentSignInBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +29,4 @@ class SignInFragment : Fragment() {
             findNavController().navigate(R.id.action_signInFragment_to_loginFragment)
         }
     }
-
-
 }
