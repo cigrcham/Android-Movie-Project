@@ -28,7 +28,6 @@ class NotificationScreen : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentNotificationScreenBinding.inflate(layoutInflater, container, false)
-        // Inflate hte layout for this fragment
         return binding.root
     }
 

@@ -71,9 +71,9 @@
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.example.androidmoviesproject.ui.view.SignInFragment"
+        android:name="com.example.androidmoviesproject.ui.view.SignUpFragment"
         android:label="fragment_sign_in"
-        tools:layout="@layout/fragment_sign_in" >
+        tools:layout="@layout/fragment_sign_up" >
         <action
             android:id="@+id/action_signInFragment_to_loginFragment"
             app:destination="@id/loginFragment" />

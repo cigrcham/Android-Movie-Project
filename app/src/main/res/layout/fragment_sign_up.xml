@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark_color"
-    tools:context=".ui.view.SignInFragment">
+    tools:context=".ui.view.SignUpFragment">
 
     <ImageView
         android:id="@+id/imageView"
@@ -132,8 +132,9 @@
         android:layout_height="50dp"
         android:layout_margin="20dp"
         android:backgroundTint="#334155"
-        android:text="@string/sign_in"
+        android:text="@string/sign_up"
         android:textAlignment="center"
+        android:textColor="@color/white"
         android:textSize="21sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
