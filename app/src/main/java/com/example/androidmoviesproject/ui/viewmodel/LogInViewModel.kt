@@ -3,24 +3,30 @@ package com.example.androidmoviesproject.ui.viewmodel
 import android.app.Activity
 import android.content.Context
 import android.provider.Settings.Global.getString
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.androidmoviesproject.R
 import com.example.androidmoviesproject.data.model.Account
+import com.example.androidmoviesproject.ui.view.LoginFragment
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LogInViewModel @Inject constructor() : ViewModel() {
-    private val auth: FirebaseAuth = Firebase.auth
+
     fun loginAccount(
         account: Account,
         success: (FirebaseUser?) -> Unit = {},
@@ -101,34 +107,32 @@ class LogInViewModel @Inject constructor() : ViewModel() {
         email: String
     ) {
         auth.sendPasswordResetEmail(email).addOnCompleteListener { task ->
-            if(task.isSuccessful) {
+            if (task.isSuccessful) {
 
             }
         }
-
     }
 
-    fun signInWithGoogle(context: Context, activity: Activity) {
-        BeginSignInRequest.builder()
-            .setGoogleIdTokenRequestOptions(
-                BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
-                    .setSupported(true)
-                    // Your server's client ID, not your Android client ID.
-                    .setServerClientId(context.getString(R.string.your_web_client_id))
-                    // Only show accounts previously used to sign in.
-                    .setFilterByAuthorizedAccounts(true)
-                    .build())
-            .build()
-
-        val gso: GoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("Cigrcham")
-            .requestEmail()
-            .build()
-
-        val mGoogleSignInClient: GoogleSignInClient = GoogleSignIn.getClient(activity, gso)
-
-
+    private var auth: FirebaseAuth = Firebase.auth
+    fun firebaseAuthWithGoogle(
+        idToken: String,
+        success: () -> Unit = {},
+        failure: () -> Unit = {}
+    )  {
+        Log.d(TAG, "firebaseAuthWithGoogle: $idToken")
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        auth.signInWithCredential(credential).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Log.d(TAG, "firebaseAuthWithGoogle: ${auth.currentUser}")
+                success.invoke()
+            } else {
+                Log.d(TAG, "firebaseAuthWithGoogle: Failure")
+                failure.invoke()
+            }
+        }
     }
 
-
+    companion object {
+        private const val TAG = "GoogleActivity"
+    }
 }
