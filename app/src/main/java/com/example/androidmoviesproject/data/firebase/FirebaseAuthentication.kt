@@ -37,11 +37,7 @@ interface FirebaseAuthentication {
 
     fun firebaseAuthWithGoogle(
         idToken: String,
-        success: (FirebaseUser?) -> Unit = {},
+        success: ( FirebaseUser?) -> Unit = {},
         failure: () -> Unit = {}
     )
-
-    companion object {
-        private const val TAG = "GoogleActivity"
-    }
-}
+    fun createAccount(account: Account, success: () -> Unit, failure: () -> Unit = {})}

@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -18,7 +17,6 @@ import com.example.androidmoviesproject.adapter.search.SearchAdapter
 import com.example.androidmoviesproject.data.model.ModelMovie
 import com.example.androidmoviesproject.databinding.FragmentSearchScreenBinding
 import com.example.androidmoviesproject.ui.viewmodel.SearchViewModel
-import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -41,17 +39,19 @@ class SearchScreen : Fragment(), ItemClicked {
         setUpRecycleView()
 
         binding.edtSearch.addTextChangedListener {
-            val search = binding.edtSearch.text.toString()
-            if (!search.isNullOrEmpty()) {
+            val search: String = binding.edtSearch.text.toString()
+            if (search.isNotEmpty()) {
+                binding.title.visibility = View.INVISIBLE
                 viewModel.getSearchData(search = search, page = adapterSearch.pageIncrease())
                 adapterSearch.clearList()
-            }else {
+            } else {
+                binding.title.visibility = View.VISIBLE
                 binding.recycleSearch.adapter = adapterRecommend
             }
         }
     }
-    private fun setUpRecycleView() {
 
+    private fun setUpRecycleView() {
         lifecycleScope.launch {
             viewModel.searchData().collect { listMovie ->
                 if (listMovie != null) {

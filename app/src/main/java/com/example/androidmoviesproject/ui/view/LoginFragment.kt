@@ -21,6 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,20 +41,30 @@ class LoginFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN && resultCode == Activity.RESULT_OK) {
-            Log.d(TAG, "onActivityResult: $data")
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
-                Log.d(TAG, "onActivityResult: ${account.idToken!!}")
                 viewModel.firebaseAuthWithGoogle(account.idToken!!, success = {
+                    if (it != null) {
+                        statusLogin(check = true, it.displayName)
+                    }
                     findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                 })
             } catch (e: ApiException) {
-                // Google Sign In failed, update UI appropriately
-                Log.w(TAG, "Google sign in failed", e)
+                statusLogin(false, null)
             }
         }
+    }
+
+    private fun statusLogin(check: Boolean, string: String? = null) {
+        var status: String = if (check) "Login Success" else "Login Failure"
+
+        if (string != null) {
+            status += " $string"
+        }
+
+        Toast.makeText(requireContext(), "$status", Toast.LENGTH_SHORT).show()
     }
 
     private fun signIn() {
@@ -71,6 +82,10 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUp()
+    }
+
+    private fun setUp() {
         binding.btnGoogle.setOnClickListener {
             signIn()
         }
@@ -91,11 +106,11 @@ class LoginFragment : Fragment() {
             )
             viewModel.loginAccount(account = account, success = {
                 if (it != null) {
-                    Toast.makeText(requireContext(), "${it.email}", Toast.LENGTH_SHORT).show()
+                    statusLogin(true, it.displayName)
                 }
                 findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
             }, failure = {
-                Toast.makeText(requireContext(), "Login Failure", Toast.LENGTH_SHORT).show()
+                statusLogin(false)
             })
         }
     }
@@ -113,7 +128,6 @@ class LoginFragment : Fragment() {
     }
 
     companion object {
-        private const val TAG = "GoogleActivity"
         private const val RC_SIGN_IN = 9001
     }
 }

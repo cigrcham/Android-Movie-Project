@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color">
@@ -24,19 +25,20 @@
                 android:id="@+id/back_navigation"
                 android:layout_width="50dp"
                 android:layout_height="48dp"
-                android:layout_marginLeft="21dp"
+                android:layout_marginStart="21dp"
                 android:layout_marginTop="12dp"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/home"
-                android:src="@drawable/home" />
+                android:src="@drawable/home"
+                tools:ignore="ImageContrastCheck" />
 
             <TextView
                 android:id="@+id/toolBar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
                 android:layout_marginTop="16dp"
-                android:text="Search"
+                android:text="@string/search"
                 android:textAlignment="viewStart"
                 android:textColor="@color/white"
                 android:textSize="26sp"
@@ -49,7 +51,7 @@
         style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Search"
+        android:hint="@string/search"
         app:boxCornerRadiusBottomEnd="26dp"
         app:boxCornerRadiusBottomStart="26dp"
         app:boxCornerRadiusTopEnd="26dp"
@@ -66,16 +68,15 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_Search"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="21dp"
-            android:layout_marginRight="21dp"
-            android:hint=""
+            android:layout_height="46dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:gravity="center"
             android:imeOptions="actionDone"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="21sp" />
+            android:textSize="21sp"
+            tools:ignore="DuplicateSpeakableTextCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -83,14 +84,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:paddingLeft="26dp"
-        android:text="Recommend"
+        android:paddingStart="26dp"
+        android:text="@string/recommend"
         android:textColor="@color/white"
         android:textSize="21sp"
         app:layout_constraintBottom_toTopOf="@id/recycle_search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_input" />
+        app:layout_constraintTop_toBottomOf="@id/layout_input"
+        tools:ignore="RtlSymmetry" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_search"

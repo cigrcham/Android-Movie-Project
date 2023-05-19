@@ -20,6 +20,6 @@
     <color name="my_app_color_on_error">#ffffff</color>
     <color name="my_app_color_on_secondary">#ffffff</color>
     <color name="dark_color">#3B424A</color>
-    <color name="button_login">#334155</color>
+    <color name="button_login">#97A8BF</color>
 
 </resources>

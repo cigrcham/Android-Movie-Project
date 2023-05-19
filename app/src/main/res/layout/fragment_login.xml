@@ -99,7 +99,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="20dp"
-        android:backgroundTint="#334155"
+        android:backgroundTint="@color/gray_color"
         android:text="@string/login"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -109,26 +109,25 @@
         app:layout_constraintTop_toBottomOf="@+id/layout_password"
         tools:ignore="DuplicateSpeakableTextCheck,VisualLintButtonSize" />
 
-    <LinearLayout
+
+    <Button
         android:id="@+id/btn_Google"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:drawableLeft="@drawable/googleg_standard_color_18"
         android:gravity="center"
+        android:text="Google"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@id/content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_Login">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/google"
-            android:textColor="@color/white"
-            android:textSize="21sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+    </Button>
 
     <LinearLayout
         android:id="@+id/content"
@@ -136,10 +135,10 @@
         android:layout_height="50dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/btn_Google"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_Google">
 
         <TextView
             android:layout_width="wrap_content"

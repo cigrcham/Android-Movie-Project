@@ -5,7 +5,6 @@ import com.example.androidmoviesproject.utils.Constants.FIREBASE_AUTH_KEY
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GoogleAuthCredential
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
@@ -88,24 +87,41 @@ class FirebaseAuthenticationImpl @Inject constructor(
 
     override fun sendResetEmail(email: String) {
         auth.sendPasswordResetEmail(email).addOnCompleteListener { task ->
-            if (task.isSuccessful)
-            {
+            if (task.isSuccessful) {
 
-            }
-            else{
+            } else {
 
             }
         }
     }
 
-    override fun firebaseAuthWithGoogle(idToken: String, success: (FirebaseUser?) -> Unit, failure: () -> Unit) {
+    override fun firebaseAuthWithGoogle(
+        idToken: String,
+        success: (FirebaseUser?) -> Unit,
+        failure: () -> Unit
+    ) {
         val credential: AuthCredential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener { task ->
-            if(task.isSuccessful) {
+            if (task.isSuccessful) {
                 success.invoke(auth.currentUser)
-            }else {
+            } else {
                 failure.invoke()
             }
         }
+    }
+
+    override fun createAccount(account: Account, success: () -> Unit, failure: () -> Unit) {
+        val auth = Firebase.auth
+        auth.createUserWithEmailAndPassword(account.userName, account.passWord)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    success.invoke()
+                } else {
+                    failure.invoke()
+                }
+            }
+            .addOnFailureListener {
+                failure.invoke()
+            }
     }
 }
