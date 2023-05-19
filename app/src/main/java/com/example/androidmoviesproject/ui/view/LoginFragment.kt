@@ -31,12 +31,11 @@ class LoginFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.your_web_client_id))
+            .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -56,10 +55,7 @@ class LoginFragment : Fragment() {
             }
         }
     }
-    companion object {
-        private const val TAG = "GoogleActivity"
-        private const val RC_SIGN_IN = 9001
-    }
+
     private fun signIn() {
         val signIntent = googleSignInClient.signInIntent
         startActivityForResult(signIntent, RC_SIGN_IN)
@@ -116,5 +112,8 @@ class LoginFragment : Fragment() {
         binding.btnLogin.setBackgroundColor(color)
     }
 
-
+    companion object {
+        private const val TAG = "GoogleActivity"
+        private const val RC_SIGN_IN = 9001
+    }
 }

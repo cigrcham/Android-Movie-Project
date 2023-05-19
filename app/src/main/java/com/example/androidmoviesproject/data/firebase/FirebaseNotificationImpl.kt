@@ -7,10 +7,11 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import javax.inject.Inject
 
 /** Get Data from Firebase */
-class NotificationFirebase {
-    fun getData(data: (List<ModelNotification>?) -> Unit = {}) {
+class FirebaseNotificationImpl @Inject constructor() : FirebaseNotification {
+    override fun getNotificationData(data: (List<ModelNotification>?) -> Unit) {
         val database = Firebase.database.getReference("Notification")
         database.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
