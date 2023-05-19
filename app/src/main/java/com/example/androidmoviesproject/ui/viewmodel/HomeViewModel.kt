@@ -2,6 +2,7 @@ package com.example.androidmoviesproject.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.androidmoviesproject.data.firebase.FirebaseAuthentication
 import com.example.androidmoviesproject.data.model.ModelMovie
 import com.example.androidmoviesproject.data.repository.Repository
 import com.example.androidmoviesproject.utils.StateResult
@@ -13,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class HomeViewModel @Inject constructor(private val repository: Repository, private val firebaseAuth: FirebaseAuthentication) : ViewModel() {
     init {
         getTrendingData()
         getForYouData()
@@ -112,5 +113,8 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
             }
             _upComingMovie.emit(listMovies)
         }
+    }
+    fun signOutAccount() {
+        firebaseAuth.signOut()
     }
 }

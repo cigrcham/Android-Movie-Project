@@ -37,7 +37,12 @@ interface FirebaseAuthentication {
 
     fun firebaseAuthWithGoogle(
         idToken: String,
-        success: ( FirebaseUser?) -> Unit = {},
+        success: (FirebaseUser?) -> Unit = {},
         failure: () -> Unit = {}
     )
-    fun createAccount(account: Account, success: () -> Unit, failure: () -> Unit = {})}
+
+    fun createAccount(account: Account, success: () -> Unit, failure: () -> Unit = {})
+
+    fun signOut()
+    fun getAccount(): FirebaseUser?
+}

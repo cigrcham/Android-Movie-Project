@@ -232,6 +232,7 @@ class HomeFragment : Fragment(), ItemClicked, OnNavigationItemSelectedListener {
             }
 
             R.id.logout_menu -> {
+                viewModel.signOutAccount()
                 findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
                 true
             }

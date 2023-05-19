@@ -61,4 +61,13 @@ class LogInViewModel @Inject constructor(private val firebaseAuth: FirebaseAuthe
     ) = viewModelScope.launch(Dispatchers.IO) {
         firebaseAuth.firebaseAuthWithGoogle(idToken, success, failure)
     }
+
+    fun account(haveAccount: (FirebaseUser) -> Unit, notHaveAccount: () -> Unit) {
+        firebaseAuth.getAccount().also {
+            if(it != null)
+                haveAccount.invoke(it)
+            else
+                notHaveAccount.invoke()
+        }
+    }
 }

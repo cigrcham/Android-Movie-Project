@@ -17,7 +17,7 @@ import com.example.androidmoviesproject.ui.viewmodel.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignUpFragment : Fragment() {
+class SignUpScreen : Fragment() {
     private lateinit var binding: FragmentSignUpBinding
     private val viewModel: SignUpViewModel by viewModels()
 

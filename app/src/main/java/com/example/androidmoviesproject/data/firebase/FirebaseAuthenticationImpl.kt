@@ -124,4 +124,12 @@ class FirebaseAuthenticationImpl @Inject constructor(
                 failure.invoke()
             }
     }
+
+    override fun signOut() {
+        auth.signOut()
+    }
+
+    override fun getAccount(): FirebaseUser? {
+        return auth.currentUser
+    }
 }
