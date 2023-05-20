@@ -71,12 +71,11 @@
             android:layout_height="46dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            android:gravity="center"
             android:imeOptions="actionDone"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="21sp"
-            tools:ignore="DuplicateSpeakableTextCheck" />
+            tools:ignore="DuplicateSpeakableTextCheck,VisualLintTextFieldSize" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
