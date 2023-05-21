@@ -26,10 +26,11 @@ abstract class AdapterBase<T : Any>(private val itemClicked: ItemClicked) :
         lists.clear()
     }
 
-    fun submitList(value: List<T>) {
+    fun submitList(value: List<T>, whenComplete: () -> Unit = {}) {
         value.forEach {
             submitItem(it)
         }
+        whenComplete.invoke()
         this.notifyDataSetChanged()
     }
 
