@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -105,7 +106,7 @@ class SearchScreen : Fragment(), ItemClicked {
         }
     }
 
-    override fun onClick(value: ModelMovie?) {
+    override fun onClick(value: ModelMovie?, imageView: ImageView?) {
         if (value != null) if (value.id != null) {
             val destination =
                 SearchScreenDirections.actionFindMoveScreenToDetailScreen(value = value.id)

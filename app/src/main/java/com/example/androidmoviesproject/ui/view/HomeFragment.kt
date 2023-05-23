@@ -2,6 +2,7 @@ package com.example.androidmoviesproject.ui.view
 
 import android.os.Bundle
 import android.util.Log
+import android.util.Pair as UtilPair
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
@@ -9,16 +10,17 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidmoviesproject.R
-import com.example.androidmoviesproject.adapter.base.AdapterBase
 import com.example.androidmoviesproject.adapter.base.ItemClicked
 import com.example.androidmoviesproject.adapter.category.CategoryAdapter
 import com.example.androidmoviesproject.adapter.categoryMovie.CategoryMovieAdapter
@@ -258,12 +260,14 @@ class HomeFragment : Fragment(), ItemClicked, OnNavigationItemSelectedListener {
     }
 
     /** When click item in recycle view*/
-    override fun onClick(value: ModelMovie?) {
-        if (value != null) {
-            if (value.id != null) {
-                val destination = HomeFragmentDirections.actionHomeFragmentToDetailScreen(value.id)
-                findNavController().navigate(destination)
-            }
+    override fun onClick(value: ModelMovie?, imageView: ImageView?) {
+        if (imageView != null && value != null && value.id != null) {
+            val pairTitle: Pair<View, String> = Pair(imageView, "Cigrcham")
+
+            val extras = FragmentNavigatorExtras(pairTitle)
+            val destination = HomeFragmentDirections.actionHomeFragmentToDetailScreen(value.id)
+            findNavController().navigate(destination, extras)
+
         }
     }
 

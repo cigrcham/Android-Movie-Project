@@ -17,7 +17,9 @@ import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.transition.TransitionInflater
 import coil.load
+import com.example.androidmoviesproject.R
 import com.example.androidmoviesproject.adapter.actorDetail.ActorsAdapter
 import com.example.androidmoviesproject.data.model.actorMovie.ModelCredits
 import com.example.androidmoviesproject.data.model.detailMovie.ModelDetailMovie
@@ -41,10 +43,18 @@ class DetailScreen : Fragment() {
         return binding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition =
+            TransitionInflater.from(requireContext()).inflateTransition(R.transition.transition_transform)
+
+    }
+
     private val args: DetailScreenArgs by navArgs()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val movieId = args.value
+
         lifecycleScope.launch {
             viewModel.detailMovie().collect { detailMovie ->
                 when (detailMovie) {
