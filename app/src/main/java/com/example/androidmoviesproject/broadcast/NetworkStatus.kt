@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Build
+import android.provider.CalendarContract.Instances
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
@@ -15,10 +16,11 @@ import com.example.androidmoviesproject.R
 import com.example.androidmoviesproject.utils.Constants.NETWORKNOTIFICATIONID
 import com.example.androidmoviesproject.utils.Constants.NETWORKSTATE
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.stream.IntStream
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class NetworkState @Inject constructor() : BroadcastReceiver() {
+class NetworkStatus @Inject constructor() : BroadcastReceiver() {
     /** Save state and emit notification when data change */
     private val networkState = MutableLiveData(true)
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -45,7 +47,11 @@ class NetworkState @Inject constructor() : BroadcastReceiver() {
     }
 
     /** Get status internet */
-    fun isOnline(): Boolean = networkState.value ?: false
+    fun isOnline(): Boolean {
+        val value = networkState.value ?: false
+        Log.d("Cigrcham", "isOnline: $value")
+        return value
+    }
 
     /** Display notification when Disconnected */
     private fun createNotification(context: Context) {

@@ -1,5 +1,6 @@
 package com.example.androidmoviesproject.di
 
+import com.example.androidmoviesproject.broadcast.NetworkStatus
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -9,8 +10,10 @@ import javax.inject.Singleton
 /** Hilt Provide BroadCast Network */
 @Module
 @InstallIn(SingletonComponent::class)
-class ModuleNetWorkState {
+object ModuleNetWorkStatus {
     @Provides
     @Singleton
-    fun provideNetworkReceiver() = ModuleNetWorkState()
+    fun provideNetworkReceiver(): NetworkStatus {
+        return NetworkStatus()
+    }
 }

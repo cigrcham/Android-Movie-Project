@@ -27,6 +27,7 @@ import com.example.androidmoviesproject.adapter.trending.TrendingAdapter
 import com.example.androidmoviesproject.data.model.ModelMovie
 import com.example.androidmoviesproject.databinding.FragmentHomeBinding
 import com.example.androidmoviesproject.ui.viewmodel.HomeViewModel
+import com.example.androidmoviesproject.utils.StateListResult
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -61,7 +62,18 @@ class HomeFragment : Fragment(), ItemClicked, OnNavigationItemSelectedListener {
         )
         lifecycleScope.launch {
             viewModel.forYouData().collect { listMovies ->
-                if (listMovies != null) adapter.submitList(listMovies)
+                if (listMovies != null)
+                    when (listMovies) {
+                        is StateListResult.Success<*> ->
+                            adapter.submitList(listMovies.value as List<ModelMovie>)
+
+                        is StateListResult.Error ->
+                            Toast.makeText(
+                                requireContext(),
+                                "${listMovies.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                    }
             }
         }
         binding.forYouRecycle.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -86,20 +98,32 @@ class HomeFragment : Fragment(), ItemClicked, OnNavigationItemSelectedListener {
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         lifecycleScope.launch {
             viewModel.trendingData().collect { listMovies ->
-                if (listMovies != null) adapter.submitList(listMovies)
+                if (listMovies != null)
+                    when (listMovies) {
+                        is StateListResult.Success<*> ->
+                            adapter.submitList(listMovies.value as List<ModelMovie>)
+
+                        is StateListResult.Error ->
+                            Toast.makeText(
+                                requireContext(),
+                                "${listMovies.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                    }
             }
         }
 
-        binding.trendingRecycleView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (!binding.trendingRecycleView.canScrollHorizontally(1)) {
-                    val page = adapter.pageIncrease()
-                    if (page == -1) binding.trendingRecycleView.scrollToPosition(0)
-                    else viewModel.getTrendingData(page)
+        binding.trendingRecycleView.addOnScrollListener(
+            object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (!binding.trendingRecycleView.canScrollHorizontally(1)) {
+                        val page = adapter.pageIncrease()
+                        if (page == -1) binding.trendingRecycleView.scrollToPosition(0)
+                        else viewModel.getTrendingData(page)
+                    }
                 }
-            }
-        })
+            })
 
         binding.txtTrending.setOnClickListener {
             binding.trendingRecycleView.scrollToPosition(0)
@@ -120,17 +144,50 @@ class HomeFragment : Fragment(), ItemClicked, OnNavigationItemSelectedListener {
         // Receive from flow in viewModel
         lifecycleScope.launch {
             viewModel.nowPlayingMovie().collect { listMovie ->
-                if (listMovie != null) nowPlayingAdapter.submitList(listMovie)
+                if (listMovie != null)
+                    when (listMovie) {
+                        is StateListResult.Success<*> ->
+                            nowPlayingAdapter.submitList(listMovie.value as List<ModelMovie>)
+
+                        is StateListResult.Error ->
+                            Toast.makeText(
+                                requireContext(),
+                                "${listMovie.message as String}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                    }
             }
         }
         lifecycleScope.launch {
-            viewModel.popularMovie().collect { listMovies ->
-                if (listMovies != null) popularAdapter.submitList(listMovies)
+            viewModel.popularMovie().collect { listMovie ->
+                if (listMovie != null)
+                    when (listMovie) {
+                        is StateListResult.Success<*> ->
+                            popularAdapter.submitList(listMovie.value as List<ModelMovie>)
+
+                        is StateListResult.Error ->
+                            Toast.makeText(
+                                requireContext(),
+                                "${listMovie.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                    }
             }
         }
         lifecycleScope.launch {
-            viewModel.upComingMovie().collect { listMovies ->
-                if (listMovies != null) upComingAdapter.submitList(listMovies)
+            viewModel.upComingMovie().collect { listMovie ->
+                if (listMovie != null)
+                    when (listMovie) {
+                        is StateListResult.Success<*> ->
+                            upComingAdapter.submitList(listMovie.value as List<ModelMovie>)
+
+                        is StateListResult.Error ->
+                            Toast.makeText(
+                                requireContext(),
+                                "${listMovie.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                    }
             }
         }
 
