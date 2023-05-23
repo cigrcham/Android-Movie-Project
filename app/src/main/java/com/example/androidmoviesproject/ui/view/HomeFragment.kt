@@ -64,15 +64,19 @@ class HomeFragment : Fragment(), ItemClicked, OnNavigationItemSelectedListener {
             viewModel.forYouData().collect { listMovies ->
                 if (listMovies != null)
                     when (listMovies) {
-                        is StateListResult.Success<*> ->
+                        is StateListResult.Success<*> -> {
+                            Log.d("HomeFragment", "setUpForYou: have list")
                             adapter.submitList(listMovies.value as List<ModelMovie>)
+                        }
 
-                        is StateListResult.Error ->
+                        is StateListResult.Error -> {
+                            Log.d("HomeFragment", "setUpForYou: not have list")
                             Toast.makeText(
                                 requireContext(),
                                 "${listMovies.message}",
                                 Toast.LENGTH_SHORT
                             ).show()
+                        }
                     }
             }
         }

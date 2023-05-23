@@ -17,13 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class SplashScreen : Fragment() {
     private lateinit var binding: FragmentSplashScreenBinding
     private val viewModel: LogInViewModel by viewModels()
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,14 +27,14 @@ class SplashScreen : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         viewModel.account(
             haveAccount = {
                 Toast.makeText(requireContext(), "${it.displayName}", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.action_splashScreen_to_homeFragment)
             },
-            notHaveAccount = {
+            notHaveAccount = { message: String? ->
+//                if (message != null)
+//                    Toast.makeText(requireContext(), "$message", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.action_splashScreen_to_loginFragment)
             })
     }

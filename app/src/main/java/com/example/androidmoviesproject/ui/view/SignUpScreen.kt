@@ -51,20 +51,21 @@ class SignUpScreen : Fragment() {
                     "Password and Re-Password is different",
                     Toast.LENGTH_SHORT
                 ).show()
-
             } else {
                 val account = Account(
                     binding.inputAccount.text.toString(),
                     binding.inputPassword.text.toString()
                 )
-                viewModel.createAccount(account, success = {
-                    Toast.makeText(requireContext(), "Sign Up Success", Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.action_signInFragment_to_loginFragment)
-                }, failure = {
-                    Toast.makeText(requireContext(), "Sign Up Error", Toast.LENGTH_SHORT).show()
-                })
+                viewModel.createAccount(
+                    account,
+                    success = { message: String? ->
+                        Toast.makeText(requireContext(), "$message", Toast.LENGTH_SHORT).show()
+                        findNavController().navigate(R.id.action_signInFragment_to_loginFragment)
+                    },
+                    failure = { message: String? ->
+                        Toast.makeText(requireContext(), "$message", Toast.LENGTH_SHORT).show()
+                    })
             }
-
         }
     }
 

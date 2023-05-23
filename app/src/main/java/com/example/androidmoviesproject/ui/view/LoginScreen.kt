@@ -13,17 +13,22 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.androidmoviesproject.R
+import com.example.androidmoviesproject.broadcast.NetworkStatus
 import com.example.androidmoviesproject.data.model.Account
 import com.example.androidmoviesproject.databinding.FragmentLoginBinding
 import com.example.androidmoviesproject.ui.viewmodel.LogInViewModel
+import com.example.androidmoviesproject.utils.Constants.DISCONNECT_NETWORK
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginScreen : Fragment() {
+    @Inject
+    lateinit var networkStatus: NetworkStatus
     private lateinit var binding: FragmentLoginBinding
     private val viewModel: LogInViewModel by viewModels()
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -48,6 +53,8 @@ class LoginScreen : Fragment() {
                         statusLogin(check = true, it.displayName)
                     }
                     findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                }, failure = { message: String? ->
+                    Toast.makeText(requireContext(), "$message", Toast.LENGTH_SHORT).show()
                 })
             } catch (e: ApiException) {
                 statusLogin(false, null)
@@ -66,8 +73,12 @@ class LoginScreen : Fragment() {
     }
 
     private fun signIn() {
-        val signIntent = googleSignInClient.signInIntent
-        startActivityForResult(signIntent, RC_SIGN_IN)
+        if (networkStatus.isOnline()) {
+            val signIntent = googleSignInClient.signInIntent
+            startActivityForResult(signIntent, RC_SIGN_IN)
+        } else {
+            Toast.makeText(requireContext(), "$DISCONNECT_NETWORK", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onCreateView(

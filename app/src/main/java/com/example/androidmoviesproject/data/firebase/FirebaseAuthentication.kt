@@ -7,28 +7,28 @@ interface FirebaseAuthentication {
     fun loginAccount(
         account: Account,
         success: (FirebaseUser?) -> Unit = {},
-        failure: () -> Unit = {}
+        failure: (String?) -> Unit = {}
     )
 
     fun updateName(
         user: FirebaseUser,
         displayName: String,
         success: () -> Unit = {},
-        failure: () -> Unit = {}
+        failure: (String?) -> Unit = {}
     )
 
     fun updateEmail(
         user: FirebaseUser,
         email: String,
         success: () -> Unit = {},
-        failure: () -> Unit = {}
+        failure: (String?) -> Unit = {}
     )
 
     fun updatePassword(
         user: FirebaseUser,
         password: String,
         success: () -> Unit = {},
-        failure: () -> Unit = {}
+        failure: (String?) -> Unit = {}
     )
 
     fun sendResetEmail(
@@ -38,10 +38,14 @@ interface FirebaseAuthentication {
     fun firebaseAuthWithGoogle(
         idToken: String,
         success: (FirebaseUser?) -> Unit = {},
-        failure: () -> Unit = {}
+        failure: (String?) -> Unit = {}
     )
 
-    fun createAccount(account: Account, success: () -> Unit, failure: () -> Unit = {})
+    fun createAccount(
+        account: Account,
+        success: (String?) -> Unit,
+        failure: (String?) -> Unit = {}
+    )
 
     fun signOut()
     fun getAccount(): FirebaseUser?

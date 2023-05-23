@@ -7,16 +7,13 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Build
-import android.provider.CalendarContract.Instances
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.MutableLiveData
 import com.example.androidmoviesproject.R
-import com.example.androidmoviesproject.utils.Constants.NETWORKNOTIFICATIONID
-import com.example.androidmoviesproject.utils.Constants.NETWORKSTATE
+import com.example.androidmoviesproject.utils.Constants.NETWORK_NOTIFICATION_ID
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.stream.IntStream
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -33,7 +30,6 @@ class NetworkStatus @Inject constructor() : BroadcastReceiver() {
     private fun changeNetwork(context: Context, isConnected: Boolean) {
         if (networkState.value != isConnected) {
             networkState.value = isConnected
-            Log.d(NETWORKSTATE, "Internet Status: ${isOnline()}")
             networkState.postValue(isConnected)
             if (!isConnected) {
                 Toast.makeText(context, "Internet Disconnect!", Toast.LENGTH_SHORT).show()
@@ -41,7 +37,7 @@ class NetworkStatus @Inject constructor() : BroadcastReceiver() {
             } else {
                 val notificationManager: NotificationManager =
                     context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                notificationManager.cancel(NETWORKNOTIFICATIONID)
+                notificationManager.cancel(NETWORK_NOTIFICATION_ID)
             }
         }
     }
@@ -49,7 +45,7 @@ class NetworkStatus @Inject constructor() : BroadcastReceiver() {
     /** Get status internet */
     fun isOnline(): Boolean {
         val value = networkState.value ?: false
-        Log.d("Cigrcham", "isOnline: $value")
+        Log.d("NetWorkStatus", "isOnline: $value")
         return value
     }
 
@@ -67,7 +63,6 @@ class NetworkStatus @Inject constructor() : BroadcastReceiver() {
             NotificationCompat.Builder(context, "network").setSmallIcon(R.drawable.network_24)
                 .setContentTitle("Disconnect Network").setContentText("Disconnect to Network")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-
-        notificationManager.notify(NETWORKNOTIFICATIONID, build.build())
+        notificationManager.notify(NETWORK_NOTIFICATION_ID, build.build())
     }
 }

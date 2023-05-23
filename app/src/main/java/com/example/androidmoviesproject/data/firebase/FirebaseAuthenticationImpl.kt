@@ -1,7 +1,10 @@
 package com.example.androidmoviesproject.data.firebase
 
 import com.example.androidmoviesproject.data.model.Account
+import com.example.androidmoviesproject.utils.Constants.CREATE_ACCOUNT_FAILURE
+import com.example.androidmoviesproject.utils.Constants.CREATE_ACCOUNT_SUCCESS
 import com.example.androidmoviesproject.utils.Constants.FIREBASE_AUTH_KEY
+import com.example.androidmoviesproject.utils.Constants.LOGIN_FAILURE
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -19,18 +22,18 @@ class FirebaseAuthenticationImpl @Inject constructor(
     override fun loginAccount(
         account: Account,
         success: (FirebaseUser?) -> Unit,
-        failure: () -> Unit
+        failure: (String?) -> Unit
     ) {
         auth.signInWithEmailAndPassword(account.userName, account.passWord)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     success.invoke(auth.currentUser)
                 } else {
-                    failure.invoke()
+                    failure.invoke(LOGIN_FAILURE)
                 }
             }
             .addOnFailureListener {
-                failure.invoke()
+                failure.invoke(LOGIN_FAILURE)
             }
     }
 
@@ -38,7 +41,7 @@ class FirebaseAuthenticationImpl @Inject constructor(
         user: FirebaseUser,
         displayName: String,
         success: () -> Unit,
-        failure: () -> Unit
+        failure: (String?) -> Unit
     ) {
         val profileUpdates = userProfileChangeRequest {
             setDisplayName(displayName)
@@ -48,7 +51,7 @@ class FirebaseAuthenticationImpl @Inject constructor(
                 if (task.isSuccessful)
                     success.invoke()
                 else
-                    failure.invoke()
+                    failure.invoke(null)
             }
     }
 
@@ -56,15 +59,15 @@ class FirebaseAuthenticationImpl @Inject constructor(
         user: FirebaseUser,
         email: String,
         success: () -> Unit,
-        failure: () -> Unit
+        failure: (String?) -> Unit
     ) {
         user.updateEmail(email).addOnCompleteListener { task ->
             if (task.isSuccessful)
                 success.invoke()
             else
-                failure.invoke()
+                failure.invoke(null)
         }.addOnFailureListener {
-            failure.invoke()
+            failure.invoke(null)
         }
     }
 
@@ -72,16 +75,16 @@ class FirebaseAuthenticationImpl @Inject constructor(
         user: FirebaseUser,
         password: String,
         success: () -> Unit,
-        failure: () -> Unit
+        failure: (String?) -> Unit
     ) {
         user.updatePassword(password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful)
                     success.invoke()
                 else
-                    failure.invoke()
+                    failure.invoke(null)
             }.addOnFailureListener {
-                failure.invoke()
+                failure.invoke(null)
             }
     }
 
@@ -98,30 +101,34 @@ class FirebaseAuthenticationImpl @Inject constructor(
     override fun firebaseAuthWithGoogle(
         idToken: String,
         success: (FirebaseUser?) -> Unit,
-        failure: () -> Unit
+        failure: (String?) -> Unit
     ) {
         val credential: AuthCredential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 success.invoke(auth.currentUser)
             } else {
-                failure.invoke()
+                failure.invoke(null)
             }
         }
     }
 
-    override fun createAccount(account: Account, success: () -> Unit, failure: () -> Unit) {
+    override fun createAccount(
+        account: Account,
+        success: (String?) -> Unit,
+        failure: (String?) -> Unit
+    ) {
         val auth = Firebase.auth
         auth.createUserWithEmailAndPassword(account.userName, account.passWord)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    success.invoke()
+                    success.invoke(CREATE_ACCOUNT_SUCCESS)
                 } else {
-                    failure.invoke()
+                    failure.invoke(CREATE_ACCOUNT_FAILURE)
                 }
             }
             .addOnFailureListener {
-                failure.invoke()
+                failure.invoke(CREATE_ACCOUNT_FAILURE)
             }
     }
 

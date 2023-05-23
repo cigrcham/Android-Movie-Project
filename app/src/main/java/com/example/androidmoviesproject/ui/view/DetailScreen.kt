@@ -2,10 +2,12 @@ package com.example.androidmoviesproject.ui.view
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Display.Mode
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -19,10 +21,12 @@ import com.example.androidmoviesproject.adapter.actorDetail.ActorsAdapter
 import com.example.androidmoviesproject.data.model.detailMovie.ModelDetailMovie
 import com.example.androidmoviesproject.databinding.FragmentDetailScreenBinding
 import com.example.androidmoviesproject.ui.viewmodel.DetailViewModel
+import com.example.androidmoviesproject.utils.StateResult
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailScreen : Fragment() {
+    private val TAG: String = this::class.java.simpleName
     private lateinit var binding: FragmentDetailScreenBinding
     private val viewModel: DetailViewModel by viewModels()
     override fun onCreateView(
@@ -37,6 +41,7 @@ class DetailScreen : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val movieId = args.value
+        Log.d(TAG, "onViewCreated: $movieId")
         if (movieId != null) {
             viewModel.getDetailMovie(movieId = movieId, data = {
                 setUpView(it)

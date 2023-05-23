@@ -1,9 +1,7 @@
 package com.example.androidmoviesproject.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.androidmoviesproject.Application
 import com.example.androidmoviesproject.broadcast.NetworkStatus
 import com.example.androidmoviesproject.data.firebase.FirebaseAuthentication
 import com.example.androidmoviesproject.data.model.ModelMovie
@@ -27,15 +25,13 @@ class HomeViewModel @Inject constructor(
     init {
         getTrendingData()
         getForYouData()
-        Log.d("NetWorkStatus", "onCreate: $networkStatus")
     }
 
     private val _trendData: MutableStateFlow<StateListResult?> = MutableStateFlow(null)
     fun trendingData(): StateFlow<StateListResult?> = _trendData
     fun getTrendingData(page: Int = 1) {
-        Log.d("Cigrcham", "getTrendingData: Call Trending $networkStatus")
         viewModelScope.launch(Dispatchers.IO) {
-            if (true) {
+            if (networkStatus.isOnline()) {
                 val listMovies: MutableList<ModelMovie> = mutableListOf()
                 repository.getTrendingMovies(page).collect {
                     when (it) {
@@ -44,12 +40,15 @@ class HomeViewModel @Inject constructor(
                         }
 
                         is StateResult.Error -> {
+                            _trendData.emit(StateListResult.Error(message = it.message))
                         }
                     }
                 }
                 _trendData.emit(StateListResult.Success(value = listMovies))
             } else
-                _trendData.emit(StateListResult.Error(DISCONNECT_NETWORK))
+                _trendData.emit(
+                    StateListResult.Error(DISCONNECT_NETWORK)
+                )
         }
     }
 
@@ -57,7 +56,7 @@ class HomeViewModel @Inject constructor(
     fun forYouData(): StateFlow<StateListResult?> = _forYouData
     fun getForYouData(page: Int = 1) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (true) {
+            if (networkStatus.isOnline()) {
                 val listMovies: MutableList<ModelMovie> = mutableListOf()
                 repository.getForYouMovies(page).collect {
                     when (it) {
@@ -79,7 +78,7 @@ class HomeViewModel @Inject constructor(
     fun nowPlayingMovie(): StateFlow<StateListResult?> = _nowPlayingMovie
     fun getNowPlayingData(page: Int = 1) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (true) {
+            if (networkStatus.isOnline()) {
                 val listMovies: MutableList<ModelMovie> = mutableListOf()
                 repository.getNowPlaying(page).collect {
                     when (it) {
@@ -101,7 +100,7 @@ class HomeViewModel @Inject constructor(
     fun popularMovie(): StateFlow<StateListResult?> = _popularMovie
     fun getPopularMovieData(page: Int = 1) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (true) {
+            if (networkStatus.isOnline()) {
                 val listMovies: MutableList<ModelMovie> = mutableListOf()
                 repository.getPopular(page).collect {
                     when (it) {
@@ -125,7 +124,7 @@ class HomeViewModel @Inject constructor(
     fun upComingMovie(): StateFlow<StateListResult?> = _upComingMovie
     fun getUpComingData(page: Int = 1) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (true) {
+            if (networkStatus.isOnline()) {
                 val listMovies: MutableList<ModelMovie> = mutableListOf()
                 repository.getUpcoming(page).collect {
                     when (it) {

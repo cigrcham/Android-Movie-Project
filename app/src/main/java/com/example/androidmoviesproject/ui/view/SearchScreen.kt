@@ -1,9 +1,6 @@
 package com.example.androidmoviesproject.ui.view
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -67,7 +64,7 @@ class SearchScreen : Fragment(), ItemClicked {
             viewModel.recommendData().collect { listMovie ->
                 if (listMovie != null) {
                     adapterRecommend.submitList(listMovie) {
-                        loadingSpinner(false)
+//                        loadingSpinner(false)
                     }
                 }
             }
@@ -82,7 +79,7 @@ class SearchScreen : Fragment(), ItemClicked {
                         val page = adapterRecommend.pageIncrease()
                         if (page == -1) binding.recycleSearch.scrollToPosition(0)
                         else {
-                            loadingSpinner(check = true)
+//                            loadingSpinner(check = true)
                             viewModel.getRecommendData(page)
                         }
                     } else {
@@ -91,7 +88,7 @@ class SearchScreen : Fragment(), ItemClicked {
                             val page = adapterSearch.pageIncrease()
                             if (page == -1) binding.recycleSearch.scrollToPosition(0)
                             else {
-                                loadingSpinner(check = true)
+//                                loadingSpinner(check = true)
                                 viewModel.getSearchData(search, page)
                             }
                         }
@@ -116,42 +113,42 @@ class SearchScreen : Fragment(), ItemClicked {
         }
     }
 
-    private fun loadingSpinner(check: Boolean) {
-        val shortAnimationDuration = resources.getInteger(android.R.integer.config_shortAnimTime)
-        if (check) {
-            binding.content.animate().alpha(0f)
-                .setDuration(shortAnimationDuration.toLong())
-                .setListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator) {
-                        super.onAnimationEnd(animation)
-                        binding.content.visibility = View.INVISIBLE
-                    }
-                })
-            binding.loadingSpinner.animate().alpha(1f)
-                .setDuration(shortAnimationDuration.toLong())
-                .setListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator) {
-                        super.onAnimationEnd(animation)
-                        binding.loadingSpinner.visibility = View.VISIBLE
-                    }
-                })
-        } else {
-            binding.content.animate().alpha(1f)
-                .setDuration(shortAnimationDuration.toLong())
-                .setListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator) {
-                        super.onAnimationEnd(animation)
-                        binding.content.visibility = View.VISIBLE
-                    }
-                })
-            binding.loadingSpinner.animate().alpha(0f)
-                .setDuration(shortAnimationDuration.toLong())
-                .setListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator) {
-                        super.onAnimationEnd(animation)
-                        binding.loadingSpinner.visibility = View.GONE
-                    }
-                })
-        }
-    }
+//    private fun loadingSpinner(check: Boolean) {
+//        val shortAnimationDuration = resources.getInteger(android.R.integer.config_shortAnimTime)
+//        if (check) {
+//            binding.content.animate().alpha(0f)
+//                .setDuration(shortAnimationDuration.toLong())
+//                .setListener(object : AnimatorListenerAdapter() {
+//                    override fun onAnimationEnd(animation: Animator) {
+//                        super.onAnimationEnd(animation)
+//                        binding.content.visibility = View.INVISIBLE
+//                    }
+//                })
+//            binding.loadingSpinner.animate().alpha(1f)
+//                .setDuration(shortAnimationDuration.toLong())
+//                .setListener(object : AnimatorListenerAdapter() {
+//                    override fun onAnimationEnd(animation: Animator) {
+//                        super.onAnimationEnd(animation)
+//                        binding.loadingSpinner.visibility = View.VISIBLE
+//                    }
+//                })
+//        } else {
+//            binding.content.animate().alpha(1f)
+//                .setDuration(shortAnimationDuration.toLong())
+//                .setListener(object : AnimatorListenerAdapter() {
+//                    override fun onAnimationEnd(animation: Animator) {
+//                        super.onAnimationEnd(animation)
+//                        binding.content.visibility = View.VISIBLE
+//                    }
+//                })
+//            binding.loadingSpinner.animate().alpha(0f)
+//                .setDuration(shortAnimationDuration.toLong())
+//                .setListener(object : AnimatorListenerAdapter() {
+//                    override fun onAnimationEnd(animation: Animator) {
+//                        super.onAnimationEnd(animation)
+//                        binding.loadingSpinner.visibility = View.GONE
+//                    }
+//                })
+//        }
+//    }
 }

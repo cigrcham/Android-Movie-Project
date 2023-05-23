@@ -17,6 +17,5 @@ class Application : Application() {
         super.onCreate()
         val intentFilter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
         registerReceiver(networkStatus, intentFilter)
-        Log.d("NetWorkStatus", "onCreate: $networkStatus")
     }
 }
