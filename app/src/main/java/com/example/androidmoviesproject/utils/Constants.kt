@@ -11,5 +11,5 @@ object Constants {
     const val CREATE_ACCOUNT_SUCCESS: String = "Create Account Success"
     const val CREATE_ACCOUNT_FAILURE: String = "Create Account Failure"
     const val NOT_HAVE_ACCOUNT: String = "Haven't Account"
-
+    const val LINK_URL_IMAGE: String = "https://image.tmdb.org/t/p/original/"
 }

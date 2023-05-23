@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -18,15 +19,19 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import coil.load
 import com.example.androidmoviesproject.adapter.actorDetail.ActorsAdapter
+import com.example.androidmoviesproject.data.model.actorMovie.ModelCredits
 import com.example.androidmoviesproject.data.model.detailMovie.ModelDetailMovie
 import com.example.androidmoviesproject.databinding.FragmentDetailScreenBinding
 import com.example.androidmoviesproject.ui.viewmodel.DetailViewModel
+import com.example.androidmoviesproject.utils.Constants.LINK_URL_IMAGE
 import com.example.androidmoviesproject.utils.StateResult
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DetailScreen : Fragment() {
-    private val TAG: String = this::class.java.simpleName
     private lateinit var binding: FragmentDetailScreenBinding
     private val viewModel: DetailViewModel by viewModels()
     override fun onCreateView(
@@ -37,18 +42,40 @@ class DetailScreen : Fragment() {
     }
 
     private val args: DetailScreenArgs by navArgs()
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val movieId = args.value
-        Log.d(TAG, "onViewCreated: $movieId")
-        if (movieId != null) {
-            viewModel.getDetailMovie(movieId = movieId, data = {
-                setUpView(it)
-            })
+        lifecycleScope.launch {
+            viewModel.detailMovie().collect { detailMovie ->
+                when (detailMovie) {
+                    is StateResult.Success<*> ->
+                        setUpView(detailMovie.value as ModelDetailMovie)
+
+                    is StateResult.Error ->
+                        Toast.makeText(
+                            requireContext(),
+                            "${detailMovie.message.toString()}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                }
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.creditMovie().collect { creditMovie ->
+                when (creditMovie) {
+                    is StateResult.Success<*> ->
+                        setUpCredits(creditMovie.value as ModelCredits)
+
+                    is StateResult.Error -> {}
+                }
+            }
         }
         setUpToolBar()
-        setUpActors(movieId = movieId)
+
+        if (movieId != null) {
+            viewModel.getDetailMovie(movieId = movieId)
+            viewModel.getCreditsMovie(movieId = movieId)
+        }
     }
 
     private fun setUpView(movie: ModelDetailMovie) {
@@ -59,7 +86,7 @@ class DetailScreen : Fragment() {
 //        binding.productMoive.text = movie.production_countries[0].name
         binding.yearMovie.text = movie.releaseDate
         binding.descriptionMovie.text = movie.overview
-        binding.imageMovie.load("https://image.tmdb.org/t/p/original/" + movie.posterPath) {
+        binding.imageMovie.load(LINK_URL_IMAGE + movie.posterPath) {
             crossfade(true)
         }
         val countriesList = movie.productionCountries
@@ -74,13 +101,12 @@ class DetailScreen : Fragment() {
         }
     }
 
-    private fun setUpActors(movieId: Int) {
+    private fun setUpCredits(credits: ModelCredits) {
         val adapter = ActorsAdapter()
+        if (credits.cast != null)
+            adapter.submitList(credits.cast)
         binding.actorsMovieRecycle.adapter = adapter
         binding.actorsMovieRecycle.layoutManager = GridLayoutManager(context, 2)
-        viewModel.getActorOfMovie(movieId = movieId, data = {
-            if (it.cast != null) adapter.submitList(it.cast)
-        })
     }
 
     private fun setUpToolBar() {
