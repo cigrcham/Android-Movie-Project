@@ -17,6 +17,10 @@ abstract class AdapterBase<T : Any>(private val itemClicked: ItemClicked) :
         return ++page
     }
 
+    fun pageCurrent(): Int {
+        return page + 1
+    }
+
     private fun submitItem(value: T) {
         lists.add(value)
     }

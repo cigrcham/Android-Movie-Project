@@ -7,7 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Build
-import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LiveData
@@ -20,8 +19,15 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class NetworkStatus @Inject constructor() : BroadcastReceiver() {
     /** Save state and emit notification when data change */
-    private val _networkState = MutableLiveData(true)
+    private val _networkState: MutableLiveData<Boolean> = MutableLiveData(true)
+
     override fun onReceive(context: Context?, intent: Intent?) {
+        if (context != null)
+            receive(context = context)
+    }
+
+    /** Get current status */
+    fun receive(context: Context) {
         val connectivityManager: ConnectivityManager =
             context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val statusNetwork = connectivityManager.activeNetworkInfo
@@ -45,11 +51,10 @@ class NetworkStatus @Inject constructor() : BroadcastReceiver() {
 
     /** Get status internet */
     fun isOnline(): Boolean {
-        val value = _networkState.value ?: false
-        Log.d("NetWorkStatus", "isOnline: $value")
-        return value
+        return _networkState.value ?: false
     }
 
+    /** Provide network livedata */
     fun networkState(): LiveData<Boolean> = _networkState
 
     /** Display notification when Disconnected */

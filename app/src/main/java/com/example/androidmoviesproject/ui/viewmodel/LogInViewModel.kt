@@ -16,7 +16,6 @@ import javax.inject.Inject
 @HiltViewModel
 class LogInViewModel @Inject constructor(
     private val firebaseAuth: FirebaseAuthentication,
-    private val networkStatus: NetworkStatus
 ) :
     ViewModel() {
     fun loginAccount(
@@ -24,10 +23,11 @@ class LogInViewModel @Inject constructor(
         success: (FirebaseUser?) -> Unit = {},
         failure: (String?) -> Unit = {}
     ) = viewModelScope.launch(Dispatchers.IO) {
-        if (networkStatus.isOnline()) {
+//        if (networkStatus.isOnline()) {
             firebaseAuth.loginAccount(account, success, failure)
-        } else
-            failure.invoke(DISCONNECT_NETWORK)
+//        }
+//        else
+//            failure.invoke(DISCONNECT_NETWORK)
     }
 
     fun updateName(
@@ -36,10 +36,10 @@ class LogInViewModel @Inject constructor(
         success: () -> Unit = {},
         failure: (String?) -> Unit = {}
     ) = viewModelScope.launch(Dispatchers.IO) {
-        if (networkStatus.isOnline())
+//        if (networkStatus.isOnline())
             firebaseAuth.updateName(user, displayName, success, failure)
-        else
-            failure.invoke(DISCONNECT_NETWORK)
+//        else
+//            failure.invoke(DISCONNECT_NETWORK)
     }
 
     fun updateEmail(
@@ -48,9 +48,9 @@ class LogInViewModel @Inject constructor(
         success: () -> Unit = {},
         failure: (String?) -> Unit = {}
     ) = viewModelScope.launch(Dispatchers.IO) {
-        if (networkStatus.isOnline())
+//        if (networkStatus.isOnline())
             firebaseAuth.updateEmail(user, email, success, failure)
-        else
+//        else
             failure.invoke(DISCONNECT_NETWORK)
     }
 
@@ -60,9 +60,9 @@ class LogInViewModel @Inject constructor(
         success: () -> Unit = {},
         failure: (String?) -> Unit = {}
     ) = viewModelScope.launch(Dispatchers.IO) {
-        if (networkStatus.isOnline())
+//        if (networkStatus.isOnline())
             firebaseAuth.updatePassword(user, password, success, failure)
-        else
+//        else
             failure.invoke(DISCONNECT_NETWORK)
     }
 
@@ -71,9 +71,9 @@ class LogInViewModel @Inject constructor(
         success: () -> Unit = {},
         failure: (String?) -> Unit = {}
     ) = viewModelScope.launch(Dispatchers.IO) {
-        if (networkStatus.isOnline())
+//        if (networkStatus.isOnline())
             firebaseAuth.sendResetEmail(email)
-        else
+//        else
             failure.invoke(DISCONNECT_NETWORK)
     }
 
@@ -83,24 +83,21 @@ class LogInViewModel @Inject constructor(
         success: (FirebaseUser?) -> Unit = {},
         failure: (String?) -> Unit = {}
     ) = viewModelScope.launch(Dispatchers.IO) {
-        if (networkStatus.isOnline()) {
+//        if (networkStatus.isOnline()) {
             firebaseAuth.firebaseAuthWithGoogle(idToken, success, failure)
-        } else
-            failure.invoke(DISCONNECT_NETWORK)
+//        } else
+//            failure.invoke(DISCONNECT_NETWORK)
     }
 
     fun account(
         haveAccount: (FirebaseUser) -> Unit = {},
         notHaveAccount: (String?) -> Unit = {}
     ) {
-        if (networkStatus.isOnline()) {
-            firebaseAuth.getAccount().also {
-                if (it != null)
-                    haveAccount.invoke(it)
-                else
-                    notHaveAccount.invoke(NOT_HAVE_ACCOUNT)
-            }
-        } else
-            notHaveAccount.invoke(null)
+        firebaseAuth.getAccount().also {
+            if (it != null)
+                haveAccount.invoke(it)
+            else
+                notHaveAccount.invoke(NOT_HAVE_ACCOUNT)
+        }
     }
 }

@@ -17,17 +17,21 @@ import com.example.androidmoviesproject.broadcast.NetworkStatus
 import com.example.androidmoviesproject.data.model.Account
 import com.example.androidmoviesproject.databinding.FragmentLoginBinding
 import com.example.androidmoviesproject.ui.viewmodel.LogInViewModel
+import com.example.androidmoviesproject.utils.Constants
 import com.example.androidmoviesproject.utils.Constants.DISCONNECT_NETWORK
+import com.example.androidmoviesproject.utils.Constants.NETWORK_STATUS
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import javax.inject.Named
 
 @AndroidEntryPoint
 class LoginScreen : Fragment() {
     @Inject
+    @Named(NETWORK_STATUS)
     lateinit var networkStatus: NetworkStatus
     private lateinit var binding: FragmentLoginBinding
     private val viewModel: LogInViewModel by viewModels()
@@ -40,6 +44,7 @@ class LoginScreen : Fragment() {
             .build()
         googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -68,11 +73,10 @@ class LoginScreen : Fragment() {
         if (string != null) {
             status += " $string"
         }
-
         Toast.makeText(requireContext(), "$status", Toast.LENGTH_SHORT).show()
     }
 
-    private fun signIn() {
+    private fun signInWithGoogle() {
         if (networkStatus.isOnline()) {
             val signIntent = googleSignInClient.signInIntent
             startActivityForResult(signIntent, RC_SIGN_IN)
@@ -96,7 +100,9 @@ class LoginScreen : Fragment() {
 
     private fun setUp() {
         binding.btnGoogle.setOnClickListener {
-            signIn()
+            isOnline(online = {
+                signInWithGoogle()
+            })
         }
         binding.goToSignIn.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_signInFragment)
@@ -109,17 +115,19 @@ class LoginScreen : Fragment() {
             buttonEnable()
         }
         binding.btnLogin.setOnClickListener {
-            val account = Account(
-                binding.inputAccount.text.toString(),
-                binding.inputPassword.text.toString()
-            )
-            viewModel.loginAccount(account = account, success = {
-                if (it != null) {
-                    statusLogin(true, it.displayName)
-                }
-                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-            }, failure = {
-                statusLogin(false)
+            isOnline(online = {
+                val account = Account(
+                    binding.inputAccount.text.toString(),
+                    binding.inputPassword.text.toString()
+                )
+                viewModel.loginAccount(account = account, success = {
+                    if (it != null) {
+                        statusLogin(true, it.displayName)
+                    }
+                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                }, failure = {
+                    statusLogin(false)
+                })
             })
         }
     }
@@ -134,6 +142,18 @@ class LoginScreen : Fragment() {
             ContextCompat.getColor(requireContext(), R.color.gray_color)
         }
         binding.btnLogin.setBackgroundColor(color)
+    }
+
+    private inline fun isOnline(
+        crossinline online: () -> Unit = {},
+        crossinline offline: () -> Unit = {
+            Toast.makeText(requireContext(), "$DISCONNECT_NETWORK", Toast.LENGTH_SHORT).show()
+        }
+    ) {
+        if (networkStatus.isOnline()) {
+            online.invoke()
+        } else
+            offline.invoke()
     }
 
     companion object {

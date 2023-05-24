@@ -50,8 +50,9 @@
         android:id="@+id/layout_input"
         style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="90dp"
         android:hint="@string/search"
+        android:paddingStart="12dp"
         app:boxCornerRadiusBottomEnd="26dp"
         app:boxCornerRadiusBottomStart="26dp"
         app:boxCornerRadiusTopEnd="26dp"
@@ -68,16 +69,10 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_Search"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:imeOptions="actionDone"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
+            android:layout_height="match_parent"
             android:textColor="@color/white"
             android:textColorHint="#9E9E9E"
-            android:textSize="18sp"
-            tools:ignore="DuplicateSpeakableTextCheck,VisualLintTextFieldSize" />
+            android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
@@ -94,7 +89,7 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="16dp"
             android:paddingStart="26dp"
             android:text="@string/recommend"
             android:textColor="@color/white"
@@ -105,7 +100,7 @@
             android:id="@+id/recycle_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="6dp"
             android:padding="6dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,7 +22,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sign_in"
+        android:text="@string/sign_up"
         android:textColor="@color/white"
         android:textSize="60sp"
         android:textStyle="bold"
@@ -127,7 +127,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btn_SignIn"
+        android:id="@+id/btn_SignUn"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="20dp"

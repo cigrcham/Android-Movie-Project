@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.androidmoviesproject.ui.view.HomeFragment">
+        android:name="com.example.androidmoviesproject.ui.view.HomeScreen">
         <action
             android:id="@+id/action_homeFragment_to_detailScreen"
             app:destination="@id/detailScreen" />

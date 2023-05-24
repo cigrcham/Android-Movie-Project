@@ -2,11 +2,8 @@ package com.example.androidmoviesproject.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.view.Window
-import android.view.WindowManager
 import androidx.core.content.ContextCompat
-import androidx.navigation.findNavController
 import com.example.androidmoviesproject.R
 import com.example.androidmoviesproject.databinding.ActivityContainerBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,6 +17,7 @@ class ContainerActivity : AppCompatActivity() {
         setContentView(binding.root)
         setUp()
     }
+
     private fun setUp() {
         val window: Window = this.window
         window.statusBarColor = ContextCompat.getColor(this, R.color.top_color)
