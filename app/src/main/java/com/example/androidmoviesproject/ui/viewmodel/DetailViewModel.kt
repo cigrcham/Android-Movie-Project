@@ -23,37 +23,27 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     private val repository: Repository,
-    private val networkStatus: NetworkStatus
 ) : ViewModel() {
     private val _detailMovie: MutableStateFlow<StateResult?> = MutableStateFlow(null)
     fun detailMovie(): Flow<StateResult> = _detailMovie.filterNotNull()
 
-    fun getDetailMovie(movieId: Int) =
-        viewModelScope.launch(Dispatchers.IO) {
-            if (networkStatus.isOnline()) {
-                repository.getDetailMovie(movieId = movieId).also {
-                    if (it != null)
-                        _detailMovie.emit(StateResult.Success(value = it))
-                    else
-                        _detailMovie.emit(StateResult.Error("Not Detail Movie"))
-                }
-            } else
-                _detailMovie.emit(StateResult.Error(message = DISCONNECT_NETWORK))
+    fun getDetailMovie(movieId: Int) = viewModelScope.launch(Dispatchers.IO) {
+        repository.getDetailMovie(movieId = movieId).also {
+            if (it != null)
+                _detailMovie.emit(StateResult.Success(value = it))
+            else
+                _detailMovie.emit(StateResult.Error("Not Detail Movie"))
         }
+    }
 
     private val _creditMovie: MutableStateFlow<StateResult?> = MutableStateFlow(null)
     fun creditMovie(): Flow<StateResult> = _creditMovie.filterNotNull()
-
-    fun getCreditsMovie(movieId: Int) =
-        viewModelScope.launch(Dispatchers.IO) {
-            if (networkStatus.isOnline()) {
-                repository.getCreditsMovie(movieId = movieId).also {
-                    if (it != null)
-                        _creditMovie.emit(StateResult.Success(value = it))
-                    else
-                        _creditMovie.emit(StateResult.Error(message = "Not Credits Movie"))
-                }
-            } else
-                _creditMovie.emit(StateResult.Error(message = DISCONNECT_NETWORK))
+    fun getCreditsMovie(movieId: Int) = viewModelScope.launch(Dispatchers.IO) {
+        repository.getCreditsMovie(movieId = movieId).also {
+            if (it != null)
+                _creditMovie.emit(StateResult.Success(value = it))
+            else
+                _creditMovie.emit(StateResult.Error(message = "Not Credits Movie"))
         }
+    }
 }

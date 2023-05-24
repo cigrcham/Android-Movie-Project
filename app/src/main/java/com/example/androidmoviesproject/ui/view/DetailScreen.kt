@@ -1,5 +1,7 @@
 package com.example.androidmoviesproject.ui.view
 
+import android.animation.ValueAnimator
+import android.graphics.drawable.shapes.Shape
 import android.os.Bundle
 import android.util.Log
 import android.view.Display.Mode
@@ -21,21 +23,35 @@ import androidx.transition.TransitionInflater
 import coil.load
 import com.example.androidmoviesproject.R
 import com.example.androidmoviesproject.adapter.actorDetail.ActorsAdapter
+import com.example.androidmoviesproject.broadcast.NetworkStatus
 import com.example.androidmoviesproject.data.model.actorMovie.ModelCredits
 import com.example.androidmoviesproject.data.model.detailMovie.ModelDetailMovie
+import com.example.androidmoviesproject.data.repository.Repository
 import com.example.androidmoviesproject.databinding.FragmentDetailScreenBinding
 import com.example.androidmoviesproject.ui.viewmodel.DetailViewModel
+import com.example.androidmoviesproject.utils.Constants
+import com.example.androidmoviesproject.utils.Constants.DISCONNECT_NETWORK
 import com.example.androidmoviesproject.utils.Constants.LINK_URL_IMAGE
+import com.example.androidmoviesproject.utils.Constants.NETWORK_STATUS
 import com.example.androidmoviesproject.utils.StateResult
+import com.facebook.shimmer.Shimmer
+import com.facebook.shimmer.ShimmerFrameLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
+import javax.inject.Inject
+import javax.inject.Named
 
 @AndroidEntryPoint
 class DetailScreen : Fragment() {
     private lateinit var binding: FragmentDetailScreenBinding
     private val viewModel: DetailViewModel by viewModels()
+    private lateinit var shimmerBuilder: Shimmer
+
+    @Inject
+    @Named(NETWORK_STATUS)
+    lateinit var networkStatus: NetworkStatus
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -46,14 +62,40 @@ class DetailScreen : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedElementEnterTransition =
-            TransitionInflater.from(requireContext()).inflateTransition(R.transition.transition_transform)
+            TransitionInflater.from(requireContext())
+                .inflateTransition(R.transition.transition_transform)
 
+        shimmerBuilder =
+            Shimmer.AlphaHighlightBuilder()
+                .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
+                .setBaseAlpha(0.3f)
+                .setClipToChildren(true)
+                .setDropoff(0.5f)
+                .setTilt(36f)
+                .setShape(Shimmer.Shape.LINEAR)
+                .setDuration(1000L)
+                .setFixedHeight(100)
+                .setRepeatMode(ValueAnimator.RESTART).build()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        shimmerActive(true)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        shimmerActive(false)
     }
 
     private val args: DetailScreenArgs by navArgs()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val movieId = args.value
+
+        binding.shimmerLayout.setShimmer(shimmerBuilder)
+        shimmerActive(true)
+
 
         lifecycleScope.launch {
             viewModel.detailMovie().collect { detailMovie ->
@@ -81,10 +123,17 @@ class DetailScreen : Fragment() {
             }
         }
         setUpToolBar()
-
+        var firstCount = true
         if (movieId != null) {
-            viewModel.getDetailMovie(movieId = movieId)
-            viewModel.getCreditsMovie(movieId = movieId)
+            networkStatus.networkState().observe(viewLifecycleOwner) {
+                if (it == true && firstCount) {
+                    viewModel.getDetailMovie(movieId = movieId)
+                    viewModel.getCreditsMovie(movieId = movieId)
+                    firstCount = false
+                } else
+                    Toast.makeText(requireContext(), "$DISCONNECT_NETWORK", Toast.LENGTH_SHORT)
+                        .show()
+            }
         }
     }
 
@@ -109,6 +158,7 @@ class DetailScreen : Fragment() {
             binding.productMoive.text = sb.toString()
             sb.clear()
         }
+        shimmerActive(false)
     }
 
     private fun setUpCredits(credits: ModelCredits) {
@@ -124,5 +174,18 @@ class DetailScreen : Fragment() {
         val navController: NavController = findNavController()
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         binding.toolbar.setupWithNavController(navController = navController, appBarConfiguration)
+        binding.toolbar.title = " "
+    }
+
+    private fun shimmerActive(active: Boolean) {
+        if (active) {
+            binding.shimmerLayout.visibility = View.VISIBLE
+            binding.shimmerLayout.startShimmer()
+            binding.scrollView.visibility = View.GONE
+        } else {
+            binding.shimmerLayout.visibility = View.GONE
+            binding.shimmerLayout.stopShimmer()
+            binding.scrollView.visibility = View.VISIBLE
+        }
     }
 }

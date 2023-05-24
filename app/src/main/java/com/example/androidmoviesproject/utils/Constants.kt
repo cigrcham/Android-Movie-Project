@@ -6,6 +6,7 @@ object Constants {
     val CATEGORY_MOVIE: List<String> = listOf(
         "Now Playing", "Popular", "Get Upcoming"
     )
+    const val NETWORK_STATUS:String = "hilt_network_status"
     const val DISCONNECT_NETWORK: String = "Reconnection Network"
     const val LOGIN_FAILURE: String = "Login Failure"
     const val CREATE_ACCOUNT_SUCCESS: String = "Create Account Success"

@@ -10,6 +10,7 @@ import android.os.Build
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.androidmoviesproject.R
 import com.example.androidmoviesproject.utils.Constants.NETWORK_NOTIFICATION_ID
@@ -19,7 +20,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class NetworkStatus @Inject constructor() : BroadcastReceiver() {
     /** Save state and emit notification when data change */
-    private val networkState = MutableLiveData(true)
+    private val _networkState = MutableLiveData(true)
     override fun onReceive(context: Context?, intent: Intent?) {
         val connectivityManager: ConnectivityManager =
             context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -28,9 +29,9 @@ class NetworkStatus @Inject constructor() : BroadcastReceiver() {
     }
 
     private fun changeNetwork(context: Context, isConnected: Boolean) {
-        if (networkState.value != isConnected) {
-            networkState.value = isConnected
-            networkState.postValue(isConnected)
+        if (_networkState.value != isConnected) {
+            _networkState.value = isConnected
+            _networkState.postValue(isConnected)
             if (!isConnected) {
                 Toast.makeText(context, "Internet Disconnect!", Toast.LENGTH_SHORT).show()
                 createNotification(context = context)
@@ -44,10 +45,12 @@ class NetworkStatus @Inject constructor() : BroadcastReceiver() {
 
     /** Get status internet */
     fun isOnline(): Boolean {
-        val value = networkState.value ?: false
+        val value = _networkState.value ?: false
         Log.d("NetWorkStatus", "isOnline: $value")
         return value
     }
+
+    fun networkState(): LiveData<Boolean> = _networkState
 
     /** Display notification when Disconnected */
     private fun createNotification(context: Context) {
