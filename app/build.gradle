@@ -36,7 +36,6 @@ android {
         viewBinding = true
         dataBinding = true
         buildConfig = true
-
     }
     /** Get API_KEY from local.properties */
 //     Gradle Properties
