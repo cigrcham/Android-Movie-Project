@@ -1,27 +1,32 @@
 package com.example.androidmoviesproject.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.androidmoviesproject.broadcast.NetworkStatus
 import com.example.androidmoviesproject.data.firebase.FirebaseAuthentication
 import com.example.androidmoviesproject.data.model.ModelMovie
 import com.example.androidmoviesproject.data.repository.Repository
+import com.example.androidmoviesproject.utils.Constants.DISCONNECT_NETWORK
+import com.example.androidmoviesproject.utils.StateListResult
 import com.example.androidmoviesproject.utils.StateResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val repository: Repository, private val firebaseAuth: FirebaseAuthentication) : ViewModel() {
-    init {
-        getTrendingData()
-        getForYouData()
-    }
+class HomeViewModel @Inject constructor(
+    private val repository: Repository,
+    private val firebaseAuth: FirebaseAuthentication,
+) : ViewModel() {
 
-    private val _trendData: MutableStateFlow<List<ModelMovie>?> = MutableStateFlow(null)
-    fun trendingData(): StateFlow<List<ModelMovie>?> = _trendData
+    private val _trendData: MutableStateFlow<StateListResult?> = MutableStateFlow(null)
+    fun trendingData(): Flow<StateListResult> = _trendData.filterNotNull()
     fun getTrendingData(page: Int = 1) {
         viewModelScope.launch(Dispatchers.IO) {
             val listMovies: MutableList<ModelMovie> = mutableListOf()
@@ -32,15 +37,16 @@ class HomeViewModel @Inject constructor(private val repository: Repository, priv
                     }
 
                     is StateResult.Error -> {
+                        _trendData.emit(StateListResult.Error(message = it.message))
                     }
                 }
             }
-            _trendData.emit(listMovies)
+            _trendData.emit(StateListResult.Success(value = listMovies))
         }
     }
 
-    private val _forYouData: MutableStateFlow<List<ModelMovie>?> = MutableStateFlow(null)
-    fun forYouData(): StateFlow<List<ModelMovie>?> = _forYouData
+    private val _forYouData: MutableStateFlow<StateListResult?> = MutableStateFlow(null)
+    fun forYouData(): Flow<StateListResult> = _forYouData.filterNotNull()
     fun getForYouData(page: Int = 1) {
         viewModelScope.launch(Dispatchers.IO) {
             val listMovies: MutableList<ModelMovie> = mutableListOf()
@@ -54,12 +60,12 @@ class HomeViewModel @Inject constructor(private val repository: Repository, priv
                     }
                 }
             }
-            _forYouData.emit(listMovies)
+            _forYouData.emit(StateListResult.Success(value = listMovies))
         }
     }
 
-    private val _nowPlayingMovie: MutableStateFlow<List<ModelMovie>?> = MutableStateFlow(null)
-    fun nowPlayingMovie(): StateFlow<List<ModelMovie>?> = _nowPlayingMovie
+    private val _nowPlayingMovie: MutableStateFlow<StateListResult?> = MutableStateFlow(null)
+    fun nowPlayingMovie(): Flow<StateListResult> = _nowPlayingMovie.filterNotNull()
     fun getNowPlayingData(page: Int = 1) {
         viewModelScope.launch(Dispatchers.IO) {
             val listMovies: MutableList<ModelMovie> = mutableListOf()
@@ -73,12 +79,12 @@ class HomeViewModel @Inject constructor(private val repository: Repository, priv
                     }
                 }
             }
-            _nowPlayingMovie.emit(listMovies)
+            _nowPlayingMovie.emit(StateListResult.Success(value = listMovies))
         }
     }
 
-    private val _popularMovie: MutableStateFlow<List<ModelMovie>?> = MutableStateFlow(null)
-    fun popularMovie(): StateFlow<List<ModelMovie>?> = _popularMovie
+    private val _popularMovie: MutableStateFlow<StateListResult?> = MutableStateFlow(null)
+    fun popularMovie(): Flow<StateListResult> = _popularMovie.filterNotNull()
     fun getPopularMovieData(page: Int = 1) {
         viewModelScope.launch(Dispatchers.IO) {
             val listMovies: MutableList<ModelMovie> = mutableListOf()
@@ -92,12 +98,12 @@ class HomeViewModel @Inject constructor(private val repository: Repository, priv
                     }
                 }
             }
-            _popularMovie.emit(listMovies)
+            _popularMovie.emit(StateListResult.Success(value = listMovies))
         }
     }
 
-    private val _upComingMovie: MutableStateFlow<List<ModelMovie>?> = MutableStateFlow(null)
-    fun upComingMovie(): StateFlow<List<ModelMovie>?> = _upComingMovie
+    private val _upComingMovie: MutableStateFlow<StateListResult?> = MutableStateFlow(null)
+    fun upComingMovie(): Flow<StateListResult> = _upComingMovie.filterNotNull()
     fun getUpComingData(page: Int = 1) {
         viewModelScope.launch(Dispatchers.IO) {
             val listMovies: MutableList<ModelMovie> = mutableListOf()
@@ -111,9 +117,10 @@ class HomeViewModel @Inject constructor(private val repository: Repository, priv
                     }
                 }
             }
-            _upComingMovie.emit(listMovies)
+            _upComingMovie.emit(StateListResult.Success(value = listMovies))
         }
     }
+
     fun signOutAccount() {
         firebaseAuth.signOut()
     }

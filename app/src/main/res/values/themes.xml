@@ -10,6 +10,9 @@
         <item name="colorError">@color/my_app_error_color</item>
         <item name="android:statusBarColor">#292929</item>
 
+        <item name="android:windowActivityTransitions">true</item>
+
+
     </style>
 
 

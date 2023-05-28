@@ -8,7 +8,7 @@ import com.example.androidmoviesproject.data.model.ModelMovie
 import com.example.androidmoviesproject.databinding.MovieCategoryItemBinding
 import com.google.android.material.imageview.ShapeableImageView
 
-class CategoryMovieHolder(binding: MovieCategoryItemBinding) :
+class CategoryMovieHolder(val binding: MovieCategoryItemBinding) :
     ViewHolderBase<ModelMovie>(binding.root) {
     private val imageMovie: ShapeableImageView = binding.imageMovie
     private val nameMovie: TextView = binding.nameMovie
@@ -22,7 +22,7 @@ class CategoryMovieHolder(binding: MovieCategoryItemBinding) :
         }
         nameMovie.text = movie.title
         itemView.setOnClickListener {
-            itemClicked.onClick(value)
+            itemClicked.onClick(value, binding.imageMovie)
         }
     }
 }

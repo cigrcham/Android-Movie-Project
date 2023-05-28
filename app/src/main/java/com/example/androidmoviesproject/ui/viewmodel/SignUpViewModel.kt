@@ -9,7 +9,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SignUpViewModel @Inject constructor(private val firebaseAuth: FirebaseAuthentication) :
     ViewModel() {
-    fun createAccount(account: Account, success: () -> Unit, failure: () -> Unit = {}) {
+    fun createAccount(account: Account, success: (String?) -> Unit, failure: (String?) -> Unit = {}) {
         firebaseAuth.createAccount(account, success, failure)
     }
 }

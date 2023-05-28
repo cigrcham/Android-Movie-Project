@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:layout_margin="12dp"
+        android:background="@drawable/shimmer_layout_drawable" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="12dp"
+        android:background="@drawable/shimmer_layout_drawable" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="12dp"
+        android:weightSum="2">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/shimmer_layout_drawable" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/shimmer_layout_drawable" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="12dp"
+        android:weightSum="2">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/shimmer_layout_drawable" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/shimmer_layout_drawable" />
+    </LinearLayout>
+</LinearLayout>

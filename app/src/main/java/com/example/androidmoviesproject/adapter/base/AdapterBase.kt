@@ -17,6 +17,10 @@ abstract class AdapterBase<T : Any>(private val itemClicked: ItemClicked) :
         return ++page
     }
 
+    fun pageCurrent(): Int {
+        return page + 1
+    }
+
     private fun submitItem(value: T) {
         lists.add(value)
     }
@@ -26,10 +30,11 @@ abstract class AdapterBase<T : Any>(private val itemClicked: ItemClicked) :
         lists.clear()
     }
 
-    fun submitList(value: List<T>) {
+    fun submitList(value: List<T>, whenComplete: () -> Unit = {}) {
         value.forEach {
             submitItem(it)
         }
+        whenComplete.invoke()
         this.notifyDataSetChanged()
     }
 

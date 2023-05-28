@@ -8,7 +8,7 @@ import com.example.androidmoviesproject.data.model.ModelMovie
 import com.example.androidmoviesproject.databinding.ForYouItemBinding
 import com.google.android.material.imageview.ShapeableImageView
 
-class ForYouHolder(binding: ForYouItemBinding) : ViewHolderBase<ModelMovie>(binding.root) {
+class ForYouHolder(val binding: ForYouItemBinding) : ViewHolderBase<ModelMovie>(binding.root) {
     private val nameMovie: TextView = binding.nameMovie
     private val yearMovie: TextView = binding.yearMovie
     private val imageMovie: ShapeableImageView = binding.imageMovie
@@ -20,7 +20,7 @@ class ForYouHolder(binding: ForYouItemBinding) : ViewHolderBase<ModelMovie>(bind
             crossfade(true)
         }
         itemView.setOnClickListener {
-            itemClicked.onClick(value)
+            itemClicked.onClick(value, binding.imageMovie)
         }
     }
 }

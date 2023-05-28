@@ -8,7 +8,7 @@ import com.example.androidmoviesproject.data.model.ModelMovie
 import com.example.androidmoviesproject.databinding.TrendingItemBinding
 import com.google.android.material.imageview.ShapeableImageView
 
-class TrendingHolder(binding: TrendingItemBinding) : ViewHolderBase<ModelMovie>(binding.root) {
+class TrendingHolder(val binding: TrendingItemBinding) : ViewHolderBase<ModelMovie>(binding.root) {
     private val imageMovie: ShapeableImageView = binding.imageMovie
     private val nameMovie: TextView = binding.nameMovie
     private val productMovie: TextView = binding.productMovie
@@ -21,7 +21,7 @@ class TrendingHolder(binding: TrendingItemBinding) : ViewHolderBase<ModelMovie>(
             crossfade(true)
         }
         itemView.setOnClickListener {
-            itemClicked.onClick(value)
+            itemClicked.onClick(value, binding.imageMovie)
         }
     }
 }

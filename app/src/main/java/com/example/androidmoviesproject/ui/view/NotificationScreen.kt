@@ -11,13 +11,22 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidmoviesproject.R
 import com.example.androidmoviesproject.adapter.notification.NotificationAdapter
+import com.example.androidmoviesproject.broadcast.NetworkStatus
 import com.example.androidmoviesproject.databinding.FragmentNotificationScreenBinding
 import com.example.androidmoviesproject.ui.viewmodel.NotificationViewModel
+import com.example.androidmoviesproject.utils.Constants
+import com.example.androidmoviesproject.utils.Constants.NETWORK_STATUS
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
+import javax.inject.Named
 
 @AndroidEntryPoint
 class NotificationScreen : Fragment() {
+    @Inject
+    @Named(NETWORK_STATUS)
+    lateinit var networkStatus: NetworkStatus
+
     private lateinit var binding: FragmentNotificationScreenBinding
     private val viewModel: NotificationViewModel by viewModels()
     override fun onCreateView(

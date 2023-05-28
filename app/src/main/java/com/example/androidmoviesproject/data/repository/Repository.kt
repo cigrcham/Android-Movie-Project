@@ -13,7 +13,7 @@ interface Repository {
     suspend fun getNowPlaying(page: Int): Flow<StateResult>
     suspend fun getPopular(page: Int): Flow<StateResult>
     suspend fun getUpcoming(page: Int): Flow<StateResult>
-    suspend fun getDetailMovie(movieId: Int, data: (ModelDetailMovie?) -> Unit = {})
-    suspend fun getCreditsMovie(movieId: Int, data: (ModelCredits?) -> Unit = {})
+    suspend fun getDetailMovie(movieId: Int): ModelDetailMovie?
+    suspend fun getCreditsMovie(movieId: Int): ModelCredits?
     suspend fun getSearchMovie(search: String, page: Int): Flow<StateResult>
 }
