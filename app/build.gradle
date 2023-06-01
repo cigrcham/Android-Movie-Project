@@ -34,7 +34,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
-        dataBinding = true
+//        dataBinding = true
         buildConfig = true
     }
     /** Get API_KEY from local.properties */

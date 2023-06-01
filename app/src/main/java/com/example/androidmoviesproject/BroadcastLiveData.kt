@@ -11,7 +11,6 @@ class BroadcastLiveData(private val context:Context): LiveData<String>() {
         override fun onReceive(context: Context?, intent: Intent?) {
             postValue("context")
         }
-
     }
     private val intentFilter = IntentFilter()
     override fun onActive() {
