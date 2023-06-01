@@ -123,6 +123,7 @@ class LoginScreen : Fragment() {
                     if (it != null) {
                         statusLogin(true, it.displayName)
                     }
+                    findNavController().popBackStack()
                     findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                 }, failure = {
                     statusLogin(false)
