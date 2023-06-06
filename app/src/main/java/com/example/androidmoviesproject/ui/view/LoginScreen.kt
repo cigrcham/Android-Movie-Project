@@ -43,8 +43,6 @@ class LoginScreen : Fragment() {
             .build()
         googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
     }
-
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN && resultCode == Activity.RESULT_OK) {

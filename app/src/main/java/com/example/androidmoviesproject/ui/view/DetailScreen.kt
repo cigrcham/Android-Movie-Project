@@ -7,10 +7,12 @@ import android.util.Log
 import android.view.Display.Mode
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.motion.widget.MotionScene
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -40,11 +42,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
+import okhttp3.internal.http.HTTP_GONE
 import javax.inject.Inject
 import javax.inject.Named
 
 @AndroidEntryPoint
-class DetailScreen : Fragment() {
+class DetailScreen : Fragment(R.layout.fragment_detail_screen) {
     private lateinit var binding: FragmentDetailScreenBinding
     private val viewModel: DetailViewModel by viewModels()
     private lateinit var shimmerBuilder: Shimmer
@@ -61,32 +64,16 @@ class DetailScreen : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition =
-            TransitionInflater.from(requireContext())
-                .inflateTransition(R.transition.transition_transform)
+        sharedElementEnterTransition = TransitionInflater.from(requireContext())
+            .inflateTransition(R.transition.transition_transform)
 
         shimmerBuilder =
-            Shimmer.AlphaHighlightBuilder()
-                .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
-                .setBaseAlpha(0.3f)
-                .setClipToChildren(true)
-                .setDropoff(0.5f)
-                .setTilt(36f)
-                .setShape(Shimmer.Shape.LINEAR)
-                .setDuration(1000L)
-                .setFixedHeight(100)
+            Shimmer.AlphaHighlightBuilder().setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
+                .setBaseAlpha(0.3f).setClipToChildren(true).setDropoff(0.5f).setTilt(36f)
+                .setShape(Shimmer.Shape.LINEAR).setDuration(1000L).setFixedHeight(100)
                 .setRepeatMode(ValueAnimator.RESTART).build()
     }
 
-    override fun onResume() {
-        super.onResume()
-        shimmerActive(true)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        shimmerActive(false)
-    }
 
     private val args: DetailScreenArgs by navArgs()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -100,23 +87,18 @@ class DetailScreen : Fragment() {
         lifecycleScope.launch {
             viewModel.detailMovie().collect { detailMovie ->
                 when (detailMovie) {
-                    is StateResult.Success<*> ->
-                        setUpView(detailMovie.value as ModelDetailMovie)
+                    is StateResult.Success<*> -> setUpView(detailMovie.value as ModelDetailMovie)
 
-                    is StateResult.Error ->
-                        Toast.makeText(
-                            requireContext(),
-                            "${detailMovie.message.toString()}",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                    is StateResult.Error -> Toast.makeText(
+                        requireContext(), "${detailMovie.message.toString()}", Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
         lifecycleScope.launch {
             viewModel.creditMovie().collect { creditMovie ->
                 when (creditMovie) {
-                    is StateResult.Success<*> ->
-                        setUpCredits(creditMovie.value as ModelCredits)
+                    is StateResult.Success<*> -> setUpCredits(creditMovie.value as ModelCredits)
 
                     is StateResult.Error -> {}
                 }
@@ -131,9 +113,8 @@ class DetailScreen : Fragment() {
                     viewModel.getDetailMovie(movieId = movieId)
                     viewModel.getCreditsMovie(movieId = movieId)
                     firstCount = false
-                } else
-                    Toast.makeText(requireContext(), "$DISCONNECT_NETWORK", Toast.LENGTH_SHORT)
-                        .show()
+                } else Toast.makeText(requireContext(), "$DISCONNECT_NETWORK", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
@@ -164,8 +145,7 @@ class DetailScreen : Fragment() {
 
     private fun setUpCredits(credits: ModelCredits) {
         val adapter = ActorsAdapter()
-        if (credits.cast != null)
-            adapter.submitList(credits.cast)
+        if (credits.cast != null) adapter.submitList(credits.cast)
         binding.actorsMovieRecycle.adapter = adapter
         binding.actorsMovieRecycle.layoutManager = GridLayoutManager(context, 2)
     }
@@ -179,14 +159,13 @@ class DetailScreen : Fragment() {
     }
 
     private fun shimmerActive(active: Boolean) {
+        binding.motionLayout.setTransition(R.id.not_To_Data)
         if (active) {
-            binding.shimmerLayout.visibility = View.VISIBLE
+            binding.motionLayout.transitionToStart()
             binding.shimmerLayout.startShimmer()
-            binding.scrollView.visibility = View.GONE
         } else {
-            binding.shimmerLayout.visibility = View.GONE
+            binding.motionLayout.transitionToEnd()
             binding.shimmerLayout.stopShimmer()
-            binding.scrollView.visibility = View.VISIBLE
         }
     }
 }
