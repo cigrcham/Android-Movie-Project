@@ -19,6 +19,7 @@ import com.example.androidmoviesproject.databinding.FragmentLoginBinding
 import com.example.androidmoviesproject.ui.viewmodel.LogInViewModel
 import com.example.androidmoviesproject.utils.Constants.DISCONNECT_NETWORK
 import com.example.androidmoviesproject.utils.Constants.NETWORK_STATUS
+import com.example.androidmoviesproject.utils.LanguageUtils
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -28,7 +29,7 @@ import javax.inject.Inject
 import javax.inject.Named
 
 @AndroidEntryPoint
-class LoginScreen : Fragment() {
+class LoginScreen : Fragment(R.layout.fragment_login) {
     @Inject
     @Named(NETWORK_STATUS)
     lateinit var networkStatus: NetworkStatus
@@ -152,5 +153,6 @@ class LoginScreen : Fragment() {
 
     companion object {
         private const val RC_SIGN_IN = 9001
+
     }
 }

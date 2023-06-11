@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import com.example.androidmoviesproject.broadcast.NetworkStatus
 import com.example.androidmoviesproject.utils.Constants
 import com.example.androidmoviesproject.utils.Constants.NETWORK_STATUS
+import com.example.androidmoviesproject.utils.LanguageUtils
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 import javax.inject.Named
