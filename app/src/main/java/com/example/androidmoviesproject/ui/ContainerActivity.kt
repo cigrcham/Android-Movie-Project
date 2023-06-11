@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
 import com.example.androidmoviesproject.R
 import com.example.androidmoviesproject.databinding.ActivityContainerBinding
 import dagger.hilt.android.AndroidEntryPoint

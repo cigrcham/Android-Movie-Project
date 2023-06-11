@@ -1,6 +1,9 @@
 package com.example.androidmoviesproject.ui.view
 
 import android.os.Bundle
+import android.os.Handler
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -51,7 +54,6 @@ class SearchScreen : Fragment(), ItemClicked {
         super.onViewCreated(view, savedInstanceState)
         setUpToolBar()
         setUpRecycleView()
-
         binding.edtSearch.addTextChangedListener {
             val search: String = binding.edtSearch.text.toString()
             if (search.isNotEmpty()) {
@@ -90,24 +92,18 @@ class SearchScreen : Fragment(), ItemClicked {
                 if (!binding.recycleSearch.canScrollVertically(1)) {
                     if (binding.recycleSearch.adapter == adapterRecommend) {
                         val page = adapterRecommend.pageIncrease()
-                        if (page != -1 && page != 2)
-                            loadData(invoke = {
-                                viewModel.getRecommendData(page = page)
-                            })
-                        else
-                            if (page == -1)
-                                binding.recycleSearch.scrollToPosition(0)
+                        if (page != -1 && page != 2) loadData(invoke = {
+                            viewModel.getRecommendData(page = page)
+                        })
+                        else if (page == -1) binding.recycleSearch.scrollToPosition(0)
                     } else {
                         val search = binding.edtSearch.text.toString()
                         if (!search.isNullOrEmpty()) {
                             val page = adapterSearch.pageIncrease()
-                            if (page != -1 && page != 2)
-                                loadData(invoke = {
-                                    viewModel.getSearchData(search = search, page = page)
-                                })
-                            else
-                                if (page == -1)
-                                    binding.recycleSearch.scrollToPosition(0)
+                            if (page != -1 && page != 2) loadData(invoke = {
+                                viewModel.getSearchData(search = search, page = page)
+                            })
+                            else if (page == -1) binding.recycleSearch.scrollToPosition(0)
                         }
                     }
                 }

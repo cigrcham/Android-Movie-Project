@@ -27,8 +27,7 @@ class SplashScreen : Fragment() {
     @Named(NETWORK_STATUS)
     lateinit var networkStatus: NetworkStatus
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSplashScreenBinding.inflate(inflater, container, false)
         return binding.root
@@ -37,15 +36,15 @@ class SplashScreen : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (networkStatus.isOnline()) {
-            viewModel.account(
-                haveAccount = {
-                    Toast.makeText(requireContext(), "${it.displayName}", Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.action_splashScreen_to_homeFragment)
-                },
-                notHaveAccount = { message:String? ->
-                    Toast.makeText(requireContext(), "$message", Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.action_splashScreen_to_loginFragment)
-                })
+            viewModel.account(haveAccount = {
+                Toast.makeText(requireContext(), "${it.displayName}", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_splashScreen_to_homeFragment)
+            }, notHaveAccount = { message: String? ->
+                Toast.makeText(requireContext(), "$message", Toast.LENGTH_SHORT).show()
+                findNavController().apply {                    popBackStack(R.id.loginFragment, true)
+                    navigate(R.id.action_splashScreen_to_loginFragment)
+                }
+            })
         } else {
             Toast.makeText(requireContext(), "$DISCONNECT_NETWORK", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_splashScreen_to_homeFragment)
