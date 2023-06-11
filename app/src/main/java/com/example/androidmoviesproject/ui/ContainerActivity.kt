@@ -21,15 +21,10 @@ class ContainerActivity : AppCompatActivity() {
         setContentView(binding.root)
         setUp()
     }
+
     init {
         updateConfig(this)
     }
-
-    private fun setUp() {
-        val window: Window = this.window
-        window.statusBarColor = ContextCompat.getColor(this, R.color.top_color)
-    }
-    private var dLocale: Locale? = null
     fun updateConfig(wrapper: ContextThemeWrapper) {
 //        if(dLocale== Locale("") ) // Do nothing if dLocale is null
 //            return
@@ -39,4 +34,12 @@ class ContainerActivity : AppCompatActivity() {
         configuration.setLocale(dLocale)
         wrapper.applyOverrideConfiguration(configuration)
     }
+
+    private fun setUp() {
+        val window: Window = this.window
+        window.statusBarColor = ContextCompat.getColor(this, R.color.top_color)
+    }
+
+    private var dLocale: Locale? = null
+
 }
