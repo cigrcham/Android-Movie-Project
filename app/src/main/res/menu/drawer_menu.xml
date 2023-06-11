@@ -9,9 +9,9 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/message_menu"
-        android:contentDescription="Message"
+        android:contentDescription="@string/message"
         android:icon="@drawable/message"
-        android:title="Message"
+        android:title="@string/message"
         app:showAsAction="always" />
     <item
         android:id="@+id/search_menu"

@@ -1,6 +1,7 @@
 package com.example.androidmoviesproject.ui.view
 
 import android.animation.ValueAnimator
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -298,6 +299,16 @@ class HomeScreen : Fragment(R.layout.fragment_home), ItemClicked, OnNavigationIt
         setHasOptionsMenu(true)
     }
 
+    private fun restartApp() {
+        val activity = requireActivity()
+        val intent = activity.packageManager.getLaunchIntentForPackage(activity.packageName);
+        if (intent != null) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            activity.finish();
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.drawer_menu, menu)
@@ -322,10 +333,26 @@ class HomeScreen : Fragment(R.layout.fragment_home), ItemClicked, OnNavigationIt
             }
 
             R.id.profile_menu -> {
+                Toast.makeText(
+                    requireContext(), getString(R.string.continue_develop), Toast.LENGTH_SHORT
+                ).show()
+                true
+            }
+
+            R.id.vietName_menu -> {
+                restartApp()
+                true
+            }
+
+            R.id.english_menu -> {
+                restartApp()
                 true
             }
 
             R.id.message_menu -> {
+                Toast.makeText(
+                    requireContext(), getString(R.string.continue_develop), Toast.LENGTH_SHORT
+                ).show()
                 true
             }
 

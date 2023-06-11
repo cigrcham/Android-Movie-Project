@@ -38,5 +38,7 @@
     <string name="get_upComming">Get Comming</string>
     <string name="viet_nam">Vietnamese</string>
     <string name="english">English</string>
+    <string name="message">Message</string>
+    <string name="continue_develop">The feature \'s continuing develop.</string>
 
 </resources>

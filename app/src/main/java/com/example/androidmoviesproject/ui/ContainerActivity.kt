@@ -33,7 +33,7 @@ class ContainerActivity : AppCompatActivity() {
     fun updateConfig(wrapper: ContextThemeWrapper) {
 //        if(dLocale== Locale("") ) // Do nothing if dLocale is null
 //            return
-        dLocale = Locale("en")
+        dLocale = Locale("vi")
         Locale.setDefault(dLocale)
         val configuration = Configuration()
         configuration.setLocale(dLocale)

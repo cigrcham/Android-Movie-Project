@@ -32,4 +32,6 @@
     <string name="get_upComming">Mới Nhất</string>
     <string name="viet_nam">Việt Nam</string>
     <string name="english">English</string>
+    <string name="message">Tin Nhắn</string>
+    <string name="continue_develop">Tính năng đang tiếp tục phát triển</string>
 </resources>
