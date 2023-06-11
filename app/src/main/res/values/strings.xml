@@ -36,5 +36,7 @@
     <string name="nowplaying">Now Playing</string>
     <string name="popular">Popular</string>
     <string name="get_upComming">Get Comming</string>
+    <string name="viet_nam">Vietnamese</string>
+    <string name="english">English</string>
 
 </resources>

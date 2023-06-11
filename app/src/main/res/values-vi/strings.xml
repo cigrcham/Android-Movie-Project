@@ -30,4 +30,6 @@
     <string name="nowplaying">Đang Phát</string>
     <string name="popular">Phổ Biến</string>
     <string name="get_upComming">Mới Nhất</string>
+    <string name="viet_nam">Việt Nam</string>
+    <string name="english">English</string>
 </resources>
