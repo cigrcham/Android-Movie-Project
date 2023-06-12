@@ -118,7 +118,7 @@
         android:layout_marginEnd="40dp"
         android:drawableLeft="@drawable/googleg_standard_color_18"
         android:gravity="center"
-        android:text="Google"
+        android:text="@string/google"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="18sp"
@@ -158,6 +158,4 @@
             android:textColor="#FFFFFF"
             android:textSize="18sp" />
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

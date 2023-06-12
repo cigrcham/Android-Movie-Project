@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-     >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/profile_menu"
         android:contentDescription="@string/profile"
@@ -10,9 +9,9 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/message_menu"
-        android:contentDescription="Message"
+        android:contentDescription="@string/message"
         android:icon="@drawable/message"
-        android:title="Message"
+        android:title="@string/message"
         app:showAsAction="always" />
     <item
         android:id="@+id/search_menu"
@@ -31,15 +30,15 @@
         <menu>
             <item
                 android:id="@+id/vietName_menu"
-                android:contentDescription="Việt Nam"
+                android:contentDescription="@string/viet_nam"
                 android:icon="@drawable/vietnam"
-                android:title="Việt Nam"
+                android:title="@string/viet_nam"
                 app:showAsAction="always" />
             <item
                 android:id="@+id/english_menu"
-                android:contentDescription="English"
+                android:contentDescription="@string/english"
                 android:icon="@drawable/englist_icon"
-                android:title="English"
+                android:title="@string/english"
                 app:showAsAction="always" />
         </menu>
     </item>

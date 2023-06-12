@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="movie_name">Tên Phim</string>
+    <string name="movie_produce">Nhà sản xuất</string>
+    <string name="movie_users">Số lượt xem</string>
+    <string name="star">Sao</string>
+    <string name="movie_year">Năm sản xuất</string>
+    <string name="notification">Thông Báo</string>
+    <string name="search">Tìm Kiếm</string>
+    <string name="welcome">Xin Chào</string>
+    <string name="for_you">Đề xuất</string>
+    <string name="open">Mở</string>
+    <string name="close">Đóng</string>
+    <string name="profile">Thông Tin Cá Nhân</string>
+    <string name="home">Trang Chủ</string>
+    <string name="category">Thể Loại</string>
+    <string name="decoration">Trang Chí</string>
+    <string name="sign_in">Đăng Ký</string>
+    <string name="username">Gmail</string>
+    <string name="password">Mật Khẩu</string>
+    <string name="repassword">Nhập Lại Mật Khẩu</string>
+    <string name="i_have_account">Có tài khoản ?</string>
+    <string name="log_in">Đăng Nhập</string>
+    <string name="login">Đăng Nhập</string>
+    <string name="don_t_have_account">Chưa có tài khoản ?</string>
+    <string name="create_now">Tạo tài khoản</string>
+    <string name="sign_up">Đăng Ký</string>
+    <string name="google">Google</string>
+    <string name="recommend">Đề xuất</string>
+    <string name="nowplaying">Đang Phát</string>
+    <string name="popular">Phổ Biến</string>
+    <string name="get_upComming">Mới Nhất</string>
+    <string name="viet_nam">Việt Nam</string>
+    <string name="english">English</string>
+    <string name="message">Tin Nhắn</string>
+    <string name="continue_develop">Tính năng đang tiếp tục phát triển.</string>
+    <string name="ok">Xác Nhận</string>
+    <string name="cancel">Hủy</string>
+    <string name="title_lang">Thay Đổi Ngôn Ngữ</string>
+    <string name="message_lang">Hệ thống sẽ khởi động lại.</string>
+    <string name="confirm_lang">Xác nhận</string>
+    <string name="cancel_lang">Hủy</string>
+</resources>
