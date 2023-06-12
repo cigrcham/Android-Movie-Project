@@ -27,12 +27,11 @@
         </activity>
 
         <receiver
-            android:name=".broadcast.NetworkState"
+            android:name=".broadcast.NetworkStatus"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
     </application>
-
 </manifest>

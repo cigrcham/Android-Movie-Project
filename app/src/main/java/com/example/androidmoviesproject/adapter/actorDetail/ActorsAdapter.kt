@@ -16,7 +16,8 @@ class ActorsAdapter : RecyclerView.Adapter<ActorsHolder>() {
     private val listCasts: MutableList<Cast> = mutableListOf()
     private lateinit var binding: ActorItemBinding
     private fun addItem(value: Cast) {
-        if (value.profilePath != null && !value.profilePath.isNullOrEmpty()) listCasts.add(value)
+        if (value.profilePath != null && !value.profilePath.isNullOrEmpty())
+            listCasts.add(value)
     }
 
     fun submitList(lists: List<Cast?>) {

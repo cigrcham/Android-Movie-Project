@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color">
@@ -24,19 +25,20 @@
                 android:id="@+id/back_navigation"
                 android:layout_width="50dp"
                 android:layout_height="48dp"
-                android:layout_marginLeft="21dp"
+                android:layout_marginStart="21dp"
                 android:layout_marginTop="12dp"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/home"
-                android:src="@drawable/home" />
+                android:src="@drawable/home"
+                tools:ignore="ImageContrastCheck" />
 
             <TextView
                 android:id="@+id/toolBar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
                 android:layout_marginTop="16dp"
-                android:text="Search"
+                android:text="@string/search"
                 android:textAlignment="viewStart"
                 android:textColor="@color/white"
                 android:textSize="26sp"
@@ -46,17 +48,20 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_input"
+        style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Search"
+        android:layout_height="90dp"
+        android:hint="@string/search"
+        android:paddingStart="12dp"
         app:boxCornerRadiusBottomEnd="26dp"
         app:boxCornerRadiusBottomStart="26dp"
         app:boxCornerRadiusTopEnd="26dp"
         app:boxCornerRadiusTopStart="26dp"
         app:endIconContentDescription="@string/search"
         app:endIconDrawable="@drawable/search"
+        app:endIconMode="clear_text"
         app:hintAnimationEnabled="true"
-        app:layout_constraintBottom_toTopOf="@+id/title"
+        app:layout_constraintBottom_toTopOf="@+id/content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_bar_container">
@@ -64,40 +69,38 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_Search"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="21dp"
-            android:layout_marginRight="21dp"
-            android:paddingTop="10dp"
-            android:hint=""
-            android:imeOptions="actionDone"
-            android:paddingBottom="10dp"
+            android:layout_height="match_parent"
             android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="21sp" />
+            android:textColorHint="#9E9E9E"
+            android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:paddingLeft="26dp"
-        android:text="Recommend"
-        android:textColor="@color/white"
-        android:textSize="21sp"
-        app:layout_constraintBottom_toTopOf="@id/recycle_search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_input" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycle_search"
+    <LinearLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="12dp"
-        android:padding="6dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintTop_toBottomOf="@id/layout_input">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingStart="26dp"
+            android:text="@string/recommend"
+            android:textColor="@color/white"
+            android:textSize="21sp"
+            tools:ignore="RtlSymmetry" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycle_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="6dp"
+            android:padding="6dp" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

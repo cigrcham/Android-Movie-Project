@@ -1,35 +1,38 @@
 package com.example.androidmoviesproject.ui.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidmoviesproject.R
 import com.example.androidmoviesproject.adapter.notification.NotificationAdapter
+import com.example.androidmoviesproject.broadcast.NetworkStatus
 import com.example.androidmoviesproject.databinding.FragmentNotificationScreenBinding
 import com.example.androidmoviesproject.ui.viewmodel.NotificationViewModel
+import com.example.androidmoviesproject.utils.Constants
+import com.example.androidmoviesproject.utils.Constants.NETWORK_STATUS
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
+import javax.inject.Named
 
 @AndroidEntryPoint
 class NotificationScreen : Fragment() {
-    private val TAG: String = this::class.java.simpleName
+    @Inject
+    @Named(NETWORK_STATUS)
+    lateinit var networkStatus: NetworkStatus
+
     private lateinit var binding: FragmentNotificationScreenBinding
     private val viewModel: NotificationViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentNotificationScreenBinding.inflate(layoutInflater, container, false)
-        // Inflate the layout for this fragment
         return binding.root
     }
 

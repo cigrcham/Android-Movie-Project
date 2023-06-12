@@ -25,7 +25,6 @@ class ModuleMovieNetwork {
     companion object {
         private const val BASE_URL = "https://api.themoviedb.org/"
         private const val ACCESS_KEY = BuildConfig.ACCESS_KEY_TBDB
-//        private const val ACCESS_KEY = "07862ec487e8e38c7f93d2b24920dee8"
     }
 
     @Singleton
@@ -70,5 +69,4 @@ class ModuleMovieNetwork {
     ): ApiMovie = Retrofit.Builder().baseUrl(BASE_URL).client(client).addConverterFactory(
         GsonConverterFactory.create()
     ).build().create(ApiMovie::class.java)
-
 }

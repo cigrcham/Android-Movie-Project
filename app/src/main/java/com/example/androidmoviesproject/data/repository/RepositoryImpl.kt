@@ -7,6 +7,7 @@ import com.example.androidmoviesproject.data.remote.api.ApiMovie
 import com.example.androidmoviesproject.utils.StateResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 import retrofit2.Call
@@ -52,21 +53,19 @@ class RepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getDetailMovie(movieId: Int, data: (ModelDetailMovie?) -> Unit) {
-        data.invoke(movieApi.getDetailMovie(movieId = movieId))
-    }
+    override suspend fun getDetailMovie(
+        movieId: Int
+    ): ModelDetailMovie? =
+        movieApi.getDetailMovie(movieId = movieId)
 
-    override suspend fun getCreditsMovie(movieId: Int, data: (ModelCredits?) -> Unit) =
-        data.invoke(movieApi.getCreditsMovie(movieId = movieId))
+    override suspend fun getCreditsMovie(movieId: Int): ModelCredits? =
+        movieApi.getCreditsMovie(movieId = movieId)
 
     override suspend fun getSearchMovie(search: String, page: Int): Flow<StateResult> = flow {
         Log.d(TAG, "Get Search Movie. ${Thread.currentThread().name} and $page")
-        movieApi.getSearch(query = search, page = page)?.results?.toMutableList()?.forEach { value ->
-            this.emit(StateResult.Success(value))
-        }
+        movieApi.getSearch(query = search, page = page)?.results?.toMutableList()
+            ?.forEach { value ->
+                this.emit(StateResult.Success(value))
+            }
     }
-
-
-
-
 }

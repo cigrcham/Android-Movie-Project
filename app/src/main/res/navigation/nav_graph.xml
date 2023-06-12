@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/splashScreen">
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.androidmoviesproject.ui.view.HomeFragment">
+        android:name="com.example.androidmoviesproject.ui.view.HomeScreen">
         <action
             android:id="@+id/action_homeFragment_to_detailScreen"
             app:destination="@id/detailScreen" />
@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_homeFragment_to_findMoveScreen"
             app:destination="@id/findMoveScreen" />
+        <action
+            android:id="@+id/action_homeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailScreen"
@@ -30,10 +33,11 @@
         android:id="@+id/findMoveScreen"
         android:name="com.example.androidmoviesproject.ui.view.SearchScreen"
         android:label="fragment_find_move_screen"
-        tools:layout="@layout/fragment_search_screen" >
+        tools:layout="@layout/fragment_search_screen">
         <action
             android:id="@+id/action_findMoveScreen_to_detailScreen"
-            app:destination="@id/detailScreen" />
+            app:destination="@id/detailScreen"
+            app:exitAnim="@android:anim/slide_in_left" />
         <action
             android:id="@+id/action_findMoveScreen_to_notificationScreen"
             app:destination="@id/notificationScreen" />
@@ -45,12 +49,47 @@
         android:id="@+id/notificationScreen"
         android:name="com.example.androidmoviesproject.ui.view.NotificationScreen"
         android:label="fragment_notification_screen"
-        tools:layout="@layout/fragment_notification_screen" >
+        tools:layout="@layout/fragment_notification_screen">
         <action
             android:id="@+id/action_notificationScreen_to_homeFragment"
             app:destination="@id/homeFragment" />
         <action
             android:id="@+id/action_notificationScreen_to_detailScreen"
-            app:destination="@id/detailScreen" />
+            app:destination="@id/detailScreen"
+            app:exitAnim="@android:anim/slide_in_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.androidmoviesproject.ui.view.LoginScreen"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.example.androidmoviesproject.ui.view.SignUpScreen"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_up">
+        <action
+            android:id="@+id/action_signInFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashScreen"
+        android:name="com.example.androidmoviesproject.ui.view.SplashScreen"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen">
+        <action
+            android:id="@+id/action_splashScreen_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_splashScreen_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

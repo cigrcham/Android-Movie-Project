@@ -18,9 +18,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/top_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="90dp"
             android:background="@color/top_color"
-            app:layout_constraintBottom_toTopOf="@id/scroll_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -114,6 +113,7 @@
             android:layout_height="0dp"
             android:scrollbarDefaultDelayBeforeFade="50"
             android:scrollbarFadeDuration="10"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -202,6 +202,18 @@
                     app:layout_constraintTop_toBottomOf="@id/category_recycler" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@id/shimmer_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_container">
+
+            <include layout="@layout/shimmer_layout_home" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
