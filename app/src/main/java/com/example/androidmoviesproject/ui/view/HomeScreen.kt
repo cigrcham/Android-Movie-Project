@@ -2,7 +2,9 @@ package com.example.androidmoviesproject.ui.view
 
 import android.animation.ValueAnimator
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
+import android.view.ContextThemeWrapper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
@@ -15,7 +17,6 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -32,11 +33,13 @@ import com.example.androidmoviesproject.data.model.ModelMovie
 import com.example.androidmoviesproject.databinding.FragmentHomeBinding
 import com.example.androidmoviesproject.ui.viewmodel.HomeViewModel
 import com.example.androidmoviesproject.utils.Constants.NETWORK_STATUS
+import com.example.androidmoviesproject.utils.LanguageHelper
 import com.example.androidmoviesproject.utils.StateListResult
 import com.facebook.shimmer.Shimmer
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -81,7 +84,6 @@ class HomeScreen : Fragment(R.layout.fragment_home), ItemClicked, OnNavigationIt
         setUpDrawer()
         loadDataInit()
     }
-
     /** Set Recycler View */
     private fun setUpTrending() {
         val adapter = TrendingAdapter(this)
@@ -374,6 +376,20 @@ class HomeScreen : Fragment(R.layout.fragment_home), ItemClicked, OnNavigationIt
         }
     }
 
+
+    private fun setAppLocale(lang: String) {
+        val locale = Locale(lang)
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.setLocale(locale)
+        val contextThemeWrapper =
+            ContextThemeWrapper(context, R.style.Base_Theme_AndroidMoviesProject)
+        contextThemeWrapper.createConfigurationContext(config)
+        contextThemeWrapper.resources.updateConfiguration(
+            config, contextThemeWrapper.resources.displayMetrics
+        )
+    }
+
     private fun loadDataInit() = loadData {
         viewModel.getTrendingData(page = 1)
         viewModel.getForYouData(page = 1)
@@ -391,5 +407,4 @@ class HomeScreen : Fragment(R.layout.fragment_home), ItemClicked, OnNavigationIt
             binding.shimmerLayout.stopShimmer()
         }
     }
-
 }

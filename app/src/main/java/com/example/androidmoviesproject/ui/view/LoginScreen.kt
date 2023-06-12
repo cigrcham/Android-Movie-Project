@@ -19,7 +19,6 @@ import com.example.androidmoviesproject.databinding.FragmentLoginBinding
 import com.example.androidmoviesproject.ui.viewmodel.LogInViewModel
 import com.example.androidmoviesproject.utils.Constants.DISCONNECT_NETWORK
 import com.example.androidmoviesproject.utils.Constants.NETWORK_STATUS
-import com.example.androidmoviesproject.utils.LanguageUtils
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
