@@ -34,4 +34,10 @@
     <string name="english">English</string>
     <string name="message">Tin Nhắn</string>
     <string name="continue_develop">Tính năng đang tiếp tục phát triển.</string>
+    <string name="ok">Xác Nhận</string>
+    <string name="cancel">Hủy</string>
+    <string name="title_lang">Thay Đổi Ngôn Ngữ</string>
+    <string name="message_lang">Hệ thống sẽ khởi động lại.</string>
+    <string name="confirm_lang">Xác nhận</string>
+    <string name="cancel_lang">Hủy</string>
 </resources>

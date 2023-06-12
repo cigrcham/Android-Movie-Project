@@ -40,5 +40,10 @@
     <string name="english">English</string>
     <string name="message">Message</string>
     <string name="continue_develop">The feature \'s continuing develop.</string>
-
+    <string name="ok">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="title_lang">Change Language</string>
+    <string name="message_lang">The system will restart.</string>
+    <string name="confirm_lang">Confirm</string>
+    <string name="cancel_lang">Cancel</string>
 </resources>

@@ -1,11 +1,7 @@
 package com.example.androidmoviesproject.ui.view
 
 import android.animation.ValueAnimator
-import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
-import android.view.ContextThemeWrapper
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -15,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -31,15 +28,14 @@ import com.example.androidmoviesproject.adapter.trending.TrendingAdapter
 import com.example.androidmoviesproject.broadcast.NetworkStatus
 import com.example.androidmoviesproject.data.model.ModelMovie
 import com.example.androidmoviesproject.databinding.FragmentHomeBinding
+import com.example.androidmoviesproject.ui.ContainerActivity
 import com.example.androidmoviesproject.ui.viewmodel.HomeViewModel
 import com.example.androidmoviesproject.utils.Constants.NETWORK_STATUS
-import com.example.androidmoviesproject.utils.LanguageHelper
 import com.example.androidmoviesproject.utils.StateListResult
 import com.facebook.shimmer.Shimmer
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -84,6 +80,7 @@ class HomeScreen : Fragment(R.layout.fragment_home), ItemClicked, OnNavigationIt
         setUpDrawer()
         loadDataInit()
     }
+
     /** Set Recycler View */
     private fun setUpTrending() {
         val adapter = TrendingAdapter(this)
@@ -301,16 +298,6 @@ class HomeScreen : Fragment(R.layout.fragment_home), ItemClicked, OnNavigationIt
         setHasOptionsMenu(true)
     }
 
-    private fun restartApp() {
-        val activity = requireActivity()
-        val intent = activity.packageManager.getLaunchIntentForPackage(activity.packageName);
-        if (intent != null) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            activity.finish();
-        }
-    }
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.drawer_menu, menu)
@@ -342,12 +329,12 @@ class HomeScreen : Fragment(R.layout.fragment_home), ItemClicked, OnNavigationIt
             }
 
             R.id.vietName_menu -> {
-                restartApp()
+                (activity as ContainerActivity).changeLangToVietnamese()
                 true
             }
 
             R.id.english_menu -> {
-                restartApp()
+                (activity as ContainerActivity).changeLangToEnglish()
                 true
             }
 
@@ -374,20 +361,6 @@ class HomeScreen : Fragment(R.layout.fragment_home), ItemClicked, OnNavigationIt
                 }
             }
         }
-    }
-
-
-    private fun setAppLocale(lang: String) {
-        val locale = Locale(lang)
-        Locale.setDefault(locale)
-        val config = Configuration()
-        config.setLocale(locale)
-        val contextThemeWrapper =
-            ContextThemeWrapper(context, R.style.Base_Theme_AndroidMoviesProject)
-        contextThemeWrapper.createConfigurationContext(config)
-        contextThemeWrapper.resources.updateConfiguration(
-            config, contextThemeWrapper.resources.displayMetrics
-        )
     }
 
     private fun loadDataInit() = loadData {
