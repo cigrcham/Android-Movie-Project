@@ -9,12 +9,8 @@
         <item name="android:colorBackground">@color/my_app_background_color</item>
         <item name="colorError">@color/my_app_error_color</item>
         <item name="android:statusBarColor">#292929</item>
-
         <item name="android:windowActivityTransitions">true</item>
-
-
     </style>
-
 
     <style name="circleImage" parent="">
         <item name="cornerFamily">rounded</item>
@@ -35,5 +31,4 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">12dp</item>
     </style>
-
 </resources>

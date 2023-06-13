@@ -1,4 +1,4 @@
-package com.example.androidmoviesproject.ui
+package com.example.androidmoviesproject.ui.view
 
 import android.app.AlertDialog
 import android.app.Dialog

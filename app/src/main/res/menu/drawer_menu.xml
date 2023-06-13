@@ -46,9 +46,9 @@
         <menu>
             <item
                 android:id="@+id/logout_menu"
-                android:contentDescription="Log out"
+                android:contentDescription="@string/log_out"
                 android:icon="@drawable/log_out"
-                android:title="Log out"
+                android:title="@string/log_out"
                 app:showAsAction="always" />
         </menu>
     </item>

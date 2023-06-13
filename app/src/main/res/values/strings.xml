@@ -42,8 +42,14 @@
     <string name="continue_develop">The feature \'s continuing develop.</string>
     <string name="ok">Confirm</string>
     <string name="cancel">Cancel</string>
-    <string name="title_lang">Change Language</string>
+    <string name="title_lang">Change language</string>
     <string name="message_lang">The system will restart.</string>
     <string name="confirm_lang">Confirm</string>
     <string name="cancel_lang">Cancel</string>
+    <string name="login_success">Login success</string>
+    <string name="login_failure">Login failure</string>
+    <string name="log_out">Log out</string>
+    <string name="log_out_title">Log out</string>
+    <string name="log_out_message">Confirm log out?</string>
+
 </resources>

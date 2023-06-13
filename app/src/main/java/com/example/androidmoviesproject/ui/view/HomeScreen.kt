@@ -311,8 +311,12 @@ class HomeScreen : Fragment(R.layout.fragment_home), ItemClicked, OnNavigationIt
             }
 
             R.id.logout_menu -> {
-                viewModel.signOutAccount()
-                findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
+                DialogConfirm(title = getString(R.string.log_out_title),
+                    message = getString(R.string.log_out_message),
+                    onPositive = {
+                        viewModel.signOutAccount()
+                        findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
+                    }).show(childFragmentManager, "Login Confirm")
                 true
             }
 

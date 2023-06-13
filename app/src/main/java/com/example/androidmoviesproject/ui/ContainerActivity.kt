@@ -7,18 +7,15 @@ import android.os.Bundle
 import android.view.ContextThemeWrapper
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.ui.res.stringResource
 import androidx.core.content.ContextCompat
 import com.example.androidmoviesproject.R
 import com.example.androidmoviesproject.databinding.ActivityContainerBinding
-import com.example.androidmoviesproject.ui.DialogConfirm.Companion.TAG_DIALOG_CONFIRM
+import com.example.androidmoviesproject.ui.view.DialogConfirm
+import com.example.androidmoviesproject.ui.view.DialogConfirm.Companion.TAG_DIALOG_CONFIRM
 import com.example.androidmoviesproject.utils.LanguageUtils
-import com.example.androidmoviesproject.utils.LanguageUtils.Companion.LANGUAGE_PREF
-import com.example.androidmoviesproject.utils.LanguageUtils.Companion.LANGUAGE_VALUE
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 import javax.inject.Inject
-import javax.inject.Named
 
 
 @AndroidEntryPoint

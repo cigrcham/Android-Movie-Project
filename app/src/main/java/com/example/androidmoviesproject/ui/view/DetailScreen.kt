@@ -108,7 +108,6 @@ class DetailScreen : Fragment(R.layout.fragment_detail_screen) {
         var firstCount = true
         if (movieId != null) {
             networkStatus.networkState().observe(viewLifecycleOwner) {
-                Log.d("CigrchamTest", "onViewCreated: $it")
                 if (it == true && firstCount) {
                     viewModel.getDetailMovie(movieId = movieId)
                     viewModel.getCreditsMovie(movieId = movieId)

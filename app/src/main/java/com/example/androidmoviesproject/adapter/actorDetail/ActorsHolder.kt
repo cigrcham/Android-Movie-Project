@@ -10,10 +10,8 @@ class ActorsHolder(binding: ActorItemBinding) : RecyclerView.ViewHolder(binding.
     private val imageActor = binding.imageActor
     private val nameActor = binding.nameActor
     fun display(value: Cast) {
-        Log.d("Cigrcham", "display: $value")
         if (!value.profilePath.isNullOrBlank() && value.profilePath != "null" && value.profilePath.isNotEmpty()) {
             nameActor.text = value.name
-            Log.d("Cigrcham", "display: $value")
             imageActor.load("https://image.tmdb.org/t/p/original/" + value.profilePath) {
                 crossfade(true)
             }

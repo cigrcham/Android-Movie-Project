@@ -66,8 +66,8 @@ class LoginScreen : Fragment(R.layout.fragment_login) {
     }
 
     private fun statusLogin(check: Boolean, string: String? = null) {
-        var status: String = if (check) "Login Success" else "Login Failure"
-
+        var status: String =
+            if (check) getString(R.string.login_success) else getString(R.string.login_failure)
         if (string != null) {
             status += " $string"
         }
