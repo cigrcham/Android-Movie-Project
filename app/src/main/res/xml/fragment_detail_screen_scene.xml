@@ -5,7 +5,7 @@
         android:id="@+id/not_To_Data"
         motion:constraintSetEnd="@id/have_data"
         motion:constraintSetStart="@id/not_have_data"
-        motion:duration="500">
+        motion:duration="360">
         <KeyFrameSet>
 
         </KeyFrameSet>
