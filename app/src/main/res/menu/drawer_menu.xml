@@ -25,6 +25,12 @@
         android:icon="@drawable/notification_icon"
         android:title="@string/notification"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/bookmark_menu"
+        android:contentDescription="@string/bookmark"
+        android:icon="@drawable/baseline_bookmark_24"
+        android:title="@string/bookmark"
+        app:showAsAction="always" />
 
     <item android:title="Language">
         <menu>

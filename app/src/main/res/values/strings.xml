@@ -51,5 +51,6 @@
     <string name="log_out">Log out</string>
     <string name="log_out_title">Log out</string>
     <string name="log_out_message">Confirm log out?</string>
+    <string name="bookmark">Bookmark</string>
 
 </resources>

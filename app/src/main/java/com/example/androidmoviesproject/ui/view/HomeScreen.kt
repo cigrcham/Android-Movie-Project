@@ -276,12 +276,8 @@ class HomeScreen : Fragment(R.layout.fragment_home), ItemClicked, OnNavigationIt
     /** When click item in recycle view*/
     override fun onClick(value: ModelMovie?, imageView: ImageView?) {
         if (imageView != null && value != null && value.id != null) {
-            val pairTitle: Pair<View, String> = Pair(imageView, "Cigrcham")
-
-            val extras = FragmentNavigatorExtras(pairTitle)
             val destination = HomeScreenDirections.actionHomeFragmentToDetailScreen(value.id)
-            findNavController().navigate(destination, extras)
-
+            findNavController().navigate(destination)
         }
     }
 
@@ -346,6 +342,10 @@ class HomeScreen : Fragment(R.layout.fragment_home), ItemClicked, OnNavigationIt
                 Toast.makeText(
                     requireContext(), getString(R.string.continue_develop), Toast.LENGTH_SHORT
                 ).show()
+                true
+            }
+            R.id.bookmark_menu -> {
+                Toast.makeText(requireContext(), "${getString(R.string.continue_develop)}", Toast.LENGTH_SHORT).show()
                 true
             }
 

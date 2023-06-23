@@ -1,6 +1,7 @@
 package com.example.androidmoviesproject.ui.view
 
 import android.animation.ValueAnimator
+import android.graphics.drawable.StateListDrawable
 import android.graphics.drawable.shapes.Shape
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionScene
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -59,8 +61,10 @@ class DetailScreen : Fragment(R.layout.fragment_detail_screen) {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDetailScreenBinding.inflate(layoutInflater, container, false)
+
         return binding.root
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,11 +83,8 @@ class DetailScreen : Fragment(R.layout.fragment_detail_screen) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val movieId = args.value
-
         binding.shimmerLayout.setShimmer(shimmerBuilder)
         shimmerActive(true)
-
-
         lifecycleScope.launch {
             viewModel.detailMovie().collect { detailMovie ->
                 when (detailMovie) {
@@ -123,7 +124,7 @@ class DetailScreen : Fragment(R.layout.fragment_detail_screen) {
         binding.toolbar.title = movie.title
         // Set View
         binding.nameMovie.text = movie.title
-//        binding.productMoive.text = movie.production_countries[0].name
+//        binding.productMovie.text = movie.production_countries[0].name
         binding.yearMovie.text = movie.releaseDate
         binding.descriptionMovie.text = movie.overview
         binding.imageMovie.load(LINK_URL_IMAGE + movie.posterPath) {
@@ -140,6 +141,8 @@ class DetailScreen : Fragment(R.layout.fragment_detail_screen) {
             sb.clear()
         }
         shimmerActive(false)
+
+        setUpBookmark(bookmark = true)
     }
 
     private fun setUpCredits(credits: ModelCredits) {
@@ -155,6 +158,20 @@ class DetailScreen : Fragment(R.layout.fragment_detail_screen) {
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         binding.toolbar.setupWithNavController(navController = navController, appBarConfiguration)
         binding.toolbar.title = " "
+    }
+
+    private fun setUpBookmark(bookmark: Boolean = false) {
+        val bookmarkState: StateListDrawable = ContextCompat.getDrawable(
+            requireContext(), R.drawable.bookmark_icon
+        ) as StateListDrawable
+        binding.btnBookmark.setImageDrawable(bookmarkState)
+        binding.btnBookmark.isActivated = bookmark
+        binding.btnBookmark.visibility = View.VISIBLE
+
+        binding.btnBookmark.setOnClickListener {
+            binding.btnBookmark.isActivated = !binding.btnBookmark.isActivated
+
+        }
     }
 
     private fun shimmerActive(active: Boolean) {
