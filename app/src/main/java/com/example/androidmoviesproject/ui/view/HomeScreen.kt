@@ -14,8 +14,10 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -44,10 +46,12 @@ class HomeScreen : Fragment(R.layout.fragment_home), ItemClicked, OnNavigationIt
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var shimmerBuilder: Shimmer
+    private val args: HomeScreenArgs by navArgs()
 
     @Inject
     @Named(NETWORK_STATUS)
     lateinit var networkStatus: NetworkStatus
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,8 +69,18 @@ class HomeScreen : Fragment(R.layout.fragment_home), ItemClicked, OnNavigationIt
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+
         binding.shimmerLayout.setShimmer(shimmerBuilder)
+
         shimmerActive(true)
+
+        if (!args.stateLogin) {
+            loadData(invoke = {
+                val direction: NavDirections =
+                    HomeScreenDirections.actionHomeFragmentToLoginFragment()
+                findNavController().navigate(directions = direction)
+            })
+        }
         return binding.root
     }
 
@@ -344,8 +358,11 @@ class HomeScreen : Fragment(R.layout.fragment_home), ItemClicked, OnNavigationIt
                 ).show()
                 true
             }
+
             R.id.bookmark_menu -> {
-                Toast.makeText(requireContext(), "${getString(R.string.continue_develop)}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(), "${getString(R.string.continue_develop)}", Toast.LENGTH_SHORT
+                ).show()
                 true
             }
 

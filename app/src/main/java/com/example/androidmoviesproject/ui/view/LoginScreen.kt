@@ -93,6 +93,7 @@ class LoginScreen : Fragment(R.layout.fragment_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUp()
+        findNavController().clearBackStack(R.id.homeFragment)
     }
 
     private fun setUp() {
