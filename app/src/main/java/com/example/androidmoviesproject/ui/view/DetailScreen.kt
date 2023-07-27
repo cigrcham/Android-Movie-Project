@@ -2,19 +2,14 @@ package com.example.androidmoviesproject.ui.view
 
 import android.animation.ValueAnimator
 import android.graphics.drawable.StateListDrawable
-import android.graphics.drawable.shapes.Shape
 import android.os.Bundle
-import android.util.Log
-import android.view.Display.Mode
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.motion.widget.MotionScene
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -30,21 +25,15 @@ import com.example.androidmoviesproject.adapter.actorDetail.ActorsAdapter
 import com.example.androidmoviesproject.broadcast.NetworkStatus
 import com.example.androidmoviesproject.data.model.actorMovie.ModelCredits
 import com.example.androidmoviesproject.data.model.detailMovie.ModelDetailMovie
-import com.example.androidmoviesproject.data.repository.Repository
 import com.example.androidmoviesproject.databinding.FragmentDetailScreenBinding
 import com.example.androidmoviesproject.ui.viewmodel.DetailViewModel
-import com.example.androidmoviesproject.utils.Constants
 import com.example.androidmoviesproject.utils.Constants.DISCONNECT_NETWORK
 import com.example.androidmoviesproject.utils.Constants.LINK_URL_IMAGE
 import com.example.androidmoviesproject.utils.Constants.NETWORK_STATUS
 import com.example.androidmoviesproject.utils.StateResult
 import com.facebook.shimmer.Shimmer
-import com.facebook.shimmer.ShimmerFrameLayout
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
-import okhttp3.internal.http.HTTP_GONE
 import javax.inject.Inject
 import javax.inject.Named
 
