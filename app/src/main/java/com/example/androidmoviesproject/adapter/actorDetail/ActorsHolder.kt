@@ -1,6 +1,5 @@
 package com.example.androidmoviesproject.adapter.actorDetail
 
-import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.androidmoviesproject.data.model.actorMovie.Cast

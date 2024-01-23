@@ -5,14 +5,8 @@ import com.example.androidmoviesproject.data.model.actorMovie.ModelCredits
 import com.example.androidmoviesproject.data.model.detailMovie.ModelDetailMovie
 import com.example.androidmoviesproject.data.remote.api.ApiMovie
 import com.example.androidmoviesproject.utils.StateResult
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
@@ -55,8 +49,7 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun getDetailMovie(
         movieId: Int
-    ): ModelDetailMovie? =
-        movieApi.getDetailMovie(movieId = movieId)
+    ): ModelDetailMovie? = movieApi.getDetailMovie(movieId = movieId)
 
     override suspend fun getCreditsMovie(movieId: Int): ModelCredits? =
         movieApi.getCreditsMovie(movieId = movieId)

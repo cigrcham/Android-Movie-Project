@@ -25,7 +25,6 @@
         </KeyFrameSet>
     </Transition>
 
-
     <ConstraintSet android:id="@+id/not_have_data">
         <Constraint
             android:id="@+id/shimmer_layout"

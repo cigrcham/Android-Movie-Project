@@ -48,25 +48,34 @@ class DetailScreen : Fragment(R.layout.fragment_detail_screen) {
     lateinit var networkStatus: NetworkStatus
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentDetailScreenBinding.inflate(layoutInflater, container, false)
-
+    ): View {
+        binding = FragmentDetailScreenBinding.inflate(
+            layoutInflater,
+            container,
+            false
+        )
         return binding.root
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = TransitionInflater.from(requireContext())
+        sharedElementEnterTransition = TransitionInflater
+            .from(requireContext())
             .inflateTransition(R.transition.transition_transform)
-
         shimmerBuilder =
-            Shimmer.AlphaHighlightBuilder().setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
-                .setBaseAlpha(0.3f).setClipToChildren(true).setDropoff(0.5f).setTilt(36f)
-                .setShape(Shimmer.Shape.LINEAR).setDuration(1000L).setFixedHeight(100)
-                .setRepeatMode(ValueAnimator.RESTART).build()
+            Shimmer
+                .AlphaHighlightBuilder()
+                .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
+                .setBaseAlpha(0.3f)
+                .setClipToChildren(true)
+                .setDropoff(0.5f)
+                .setTilt(36f)
+                .setShape(Shimmer.Shape.LINEAR)
+                .setDuration(1000L)
+                .setFixedHeight(100)
+                .setRepeatMode(ValueAnimator.RESTART)
+                .build()
     }
-
 
     private val args: DetailScreenArgs by navArgs()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,7 +89,7 @@ class DetailScreen : Fragment(R.layout.fragment_detail_screen) {
                     is StateResult.Success<*> -> setUpView(detailMovie.value as ModelDetailMovie)
 
                     is StateResult.Error -> Toast.makeText(
-                        requireContext(), "${detailMovie.message.toString()}", Toast.LENGTH_SHORT
+                        requireContext(), detailMovie.message.toString(), Toast.LENGTH_SHORT
                     ).show()
                 }
             }
@@ -96,15 +105,13 @@ class DetailScreen : Fragment(R.layout.fragment_detail_screen) {
         }
         setUpToolBar()
         var firstCount = true
-        if (movieId != null) {
-            networkStatus.networkState().observe(viewLifecycleOwner) {
-                if (it == true && firstCount) {
-                    viewModel.getDetailMovie(movieId = movieId)
-                    viewModel.getCreditsMovie(movieId = movieId)
-                    firstCount = false
-                } else Toast.makeText(requireContext(), "$DISCONNECT_NETWORK", Toast.LENGTH_SHORT)
-                    .show()
-            }
+        networkStatus.networkState().observe(viewLifecycleOwner) {
+            if (it == true && firstCount) {
+                viewModel.getDetailMovie(movieId = movieId)
+                viewModel.getCreditsMovie(movieId = movieId)
+                firstCount = false
+            } else Toast.makeText(requireContext(), DISCONNECT_NETWORK, Toast.LENGTH_SHORT)
+                .show()
         }
     }
 

@@ -1,17 +1,13 @@
 package com.example.androidmoviesproject.adapter.category
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.ui.res.stringResource
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidmoviesproject.R
 import com.example.androidmoviesproject.databinding.CategoryItemBinding
 import com.example.androidmoviesproject.utils.Constants.CATEGORY_MOVIE
-import javax.inject.Inject
 
 /**
  * Adapter for Category RecycleView in HomeScreen
@@ -29,7 +25,12 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryHolder>() {
     private val categoryLists: List<Int> = CATEGORY_MOVIE
     private lateinit var binding: CategoryItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryHolder {
-        binding = CategoryItemBinding.inflate((LayoutInflater.from(parent.context)), parent, false)
+        binding = CategoryItemBinding
+            .inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         return CategoryHolder(binding = binding)
     }
 
