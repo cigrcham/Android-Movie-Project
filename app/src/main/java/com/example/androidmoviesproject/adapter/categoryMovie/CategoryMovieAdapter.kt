@@ -15,8 +15,12 @@ class CategoryMovieAdapter(itemClicked: ItemClicked) :
     AdapterBase<ModelMovie>(itemClicked = itemClicked) {
     private lateinit var binding: MovieCategoryItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderBase<ModelMovie> {
-        binding =
-            MovieCategoryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding = MovieCategoryItemBinding
+            .inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         return CategoryMovieHolder(binding = binding)
     }
 }

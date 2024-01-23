@@ -1,5 +1,6 @@
 package com.example.androidmoviesproject.adapter.actorDetail
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,7 @@ class ActorsAdapter : RecyclerView.Adapter<ActorsHolder>() {
             listCasts.add(value)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun submitList(lists: List<Cast?>) {
         lists.forEach {
             if (it != null) {

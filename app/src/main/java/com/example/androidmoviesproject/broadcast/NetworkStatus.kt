@@ -29,7 +29,7 @@ class NetworkStatus @Inject constructor() : BroadcastReceiver() {
     /** Get current status */
     fun receive(context: Context) {
         val connectivityManager: ConnectivityManager =
-            context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val statusNetwork = connectivityManager.activeNetworkInfo
         changeNetwork(context = context, isConnected = statusNetwork != null)
     }

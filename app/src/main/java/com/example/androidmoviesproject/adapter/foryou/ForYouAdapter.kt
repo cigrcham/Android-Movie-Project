@@ -14,7 +14,12 @@ import com.example.androidmoviesproject.databinding.ForYouItemBinding
 class ForYouAdapter(itemClicked: ItemClicked) : AdapterBase<ModelMovie>(itemClicked = itemClicked) {
     private lateinit var binding: ForYouItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderBase<ModelMovie> {
-        binding = ForYouItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding = ForYouItemBinding
+            .inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         return ForYouHolder(binding = binding)
     }
 }

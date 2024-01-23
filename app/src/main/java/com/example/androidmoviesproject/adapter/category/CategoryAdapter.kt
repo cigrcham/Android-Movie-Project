@@ -3,7 +3,6 @@ package com.example.androidmoviesproject.adapter.category
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidmoviesproject.R
@@ -23,10 +22,15 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryHolder>() {
     /**
      * List Category
      * */
-    private val categoryLists: List<String> = CATEGORY_MOVIE
+    private val categoryLists: List<Int> = CATEGORY_MOVIE
     private lateinit var binding: CategoryItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryHolder {
-        binding = CategoryItemBinding.inflate((LayoutInflater.from(parent.context)), parent, false)
+        binding = CategoryItemBinding
+            .inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         return CategoryHolder(binding = binding)
     }
 
@@ -36,7 +40,7 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryHolder>() {
 
     override fun onBindViewHolder(holder: CategoryHolder, position: Int) {
         itemChoose(holder, position == _currentIndex.value)
-        holder.titleCategory.text = categoryLists[position]
+        binding.titleCategory.setText(categoryLists[position])
         var currentPosition: Int = position
         holder.bind {
             _currentIndex.value = currentPosition

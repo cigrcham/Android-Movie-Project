@@ -1,25 +1,25 @@
 <resources>
-    <string name="app_name">Movies</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name" translatable="false">Movies</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="movie_name">Movie Name</string>
     <string name="movie_produce">Movie Produce</string>
     <string name="movie_users">Movie Users Watched</string>
     <string name="star">Star</string>
     <string name="movie_year">Movie Year</string>
-    <string name="cigrcham">Cigrcham</string>
+    <string name="cigrcham" translatable="false">Cigrcham</string>
     <string name="notification">Notification</string>
     <string name="search">Search</string>
-    <string name="description_movie">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex...</string>
+    <string name="description_movie" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex...</string>
     <string name="welcome">Welcome</string>
     <string name="for_you">For you</string>
-    <string name="trending">Trending</string>
+    <string name="trending" translatable="false">Trending</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="profile">My Profile</string>
     <string name="home">Home</string>
-    <string name="todo">TODO</string>
+    <string name="todo" translatable="false">TODO</string>
     <string name="category">Category</string>
-    <string name="name_actor">Name Actor</string>
+    <string name="name_actor" translatable="false">Name Actor</string>
     <string name="decoration">Decoration</string>
     <string name="sign_in">Sign In</string>
     <string name="username">Gmail</string>
@@ -33,4 +33,24 @@
     <string name="sign_up">Sign Up</string>
     <string name="google">Google</string>
     <string name="recommend">Recommend</string>
+    <string name="nowplaying">Now Playing</string>
+    <string name="popular">Popular</string>
+    <string name="get_upComming">Get Comming</string>
+    <string name="viet_nam">Vietnamese</string>
+    <string name="english">English</string>
+    <string name="message">Message</string>
+    <string name="continue_develop">The feature \'s continuing develop.</string>
+    <string name="ok">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="title_lang">Change language</string>
+    <string name="message_lang">The system will restart.</string>
+    <string name="confirm_lang">Confirm</string>
+    <string name="cancel_lang">Cancel</string>
+    <string name="login_success">Login success</string>
+    <string name="login_failure">Login failure</string>
+    <string name="log_out">Log out</string>
+    <string name="log_out_title">Log out</string>
+    <string name="log_out_message">Confirm log out?</string>
+    <string name="bookmark">Bookmark</string>
+
 </resources>

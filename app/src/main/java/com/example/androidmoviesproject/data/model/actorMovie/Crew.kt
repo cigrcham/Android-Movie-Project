@@ -14,5 +14,4 @@ data class Crew(
     @SerializedName("original_name") val originalName: String? = null,
     @SerializedName("popularity") val popularity: Double? = null,
     @SerializedName("profile_path") val profilePath: String? = null
-
 )

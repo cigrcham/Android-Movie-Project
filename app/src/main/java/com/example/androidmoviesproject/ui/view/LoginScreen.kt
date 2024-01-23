@@ -28,7 +28,7 @@ import javax.inject.Inject
 import javax.inject.Named
 
 @AndroidEntryPoint
-class LoginScreen : Fragment() {
+class LoginScreen : Fragment(R.layout.fragment_login) {
     @Inject
     @Named(NETWORK_STATUS)
     lateinit var networkStatus: NetworkStatus
@@ -38,12 +38,9 @@ class LoginScreen : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
+            .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build()
         googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -56,7 +53,9 @@ class LoginScreen : Fragment() {
                     if (it != null) {
                         statusLogin(check = true, it.displayName)
                     }
-                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                    findNavController().apply {
+                        navigate(R.id.action_loginFragment_to_homeFragment)
+                    }
                 }, failure = { message: String? ->
                     Toast.makeText(requireContext(), "$message", Toast.LENGTH_SHORT).show()
                 })
@@ -67,8 +66,8 @@ class LoginScreen : Fragment() {
     }
 
     private fun statusLogin(check: Boolean, string: String? = null) {
-        var status: String = if (check) "Login Success" else "Login Failure"
-
+        var status: String =
+            if (check) getString(R.string.login_success) else getString(R.string.login_failure)
         if (string != null) {
             status += " $string"
         }
@@ -85,8 +84,7 @@ class LoginScreen : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
@@ -95,6 +93,7 @@ class LoginScreen : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUp()
+        findNavController().clearBackStack(R.id.homeFragment)
     }
 
     private fun setUp() {
@@ -116,14 +115,12 @@ class LoginScreen : Fragment() {
         binding.btnLogin.setOnClickListener {
             isOnline(online = {
                 val account = Account(
-                    binding.inputAccount.text.toString(),
-                    binding.inputPassword.text.toString()
+                    binding.inputAccount.text.toString(), binding.inputPassword.text.toString()
                 )
                 viewModel.loginAccount(account = account, success = {
                     if (it != null) {
                         statusLogin(true, it.displayName)
                     }
-                    findNavController().popBackStack()
                     findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                 }, failure = {
                     statusLogin(false)
@@ -145,18 +142,17 @@ class LoginScreen : Fragment() {
     }
 
     private inline fun isOnline(
-        crossinline online: () -> Unit = {},
-        crossinline offline: () -> Unit = {
+        crossinline online: () -> Unit = {}, crossinline offline: () -> Unit = {
             Toast.makeText(requireContext(), "$DISCONNECT_NETWORK", Toast.LENGTH_SHORT).show()
         }
     ) {
         if (networkStatus.isOnline()) {
             online.invoke()
-        } else
-            offline.invoke()
+        } else offline.invoke()
     }
 
     companion object {
         private const val RC_SIGN_IN = 9001
+
     }
 }
