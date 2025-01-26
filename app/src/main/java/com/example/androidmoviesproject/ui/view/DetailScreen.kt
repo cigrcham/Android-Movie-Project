@@ -84,7 +84,7 @@ class DetailScreen : Fragment(R.layout.fragment_detail_screen) {
         binding.shimmerLayout.setShimmer(shimmerBuilder)
         shimmerActive(true)
         lifecycleScope.launch {
-            viewModel.detailMovie().collect { detailMovie ->
+            viewModel.detailMovie.collect { detailMovie ->
                 when (detailMovie) {
                     is StateResult.Success<*> -> setUpView(detailMovie.value as ModelDetailMovie)
 
@@ -95,7 +95,7 @@ class DetailScreen : Fragment(R.layout.fragment_detail_screen) {
             }
         }
         lifecycleScope.launch {
-            viewModel.creditMovie().collect { creditMovie ->
+            viewModel.creditMovie.collect { creditMovie ->
                 when (creditMovie) {
                     is StateResult.Success<*> -> setUpCredits(creditMovie.value as ModelCredits)
 
@@ -116,11 +116,8 @@ class DetailScreen : Fragment(R.layout.fragment_detail_screen) {
     }
 
     private fun setUpView(movie: ModelDetailMovie) {
-        // Set name Movie for title Fragment
         binding.toolbar.title = movie.title
-        // Set View
         binding.nameMovie.text = movie.title
-//        binding.productMovie.text = movie.production_countries[0].name
         binding.yearMovie.text = movie.releaseDate
         binding.descriptionMovie.text = movie.overview
         binding.imageMovie.load(LINK_URL_IMAGE + movie.posterPath) {
@@ -128,7 +125,7 @@ class DetailScreen : Fragment(R.layout.fragment_detail_screen) {
         }
         val countriesList = movie.productionCountries
         if (!countriesList.isNullOrEmpty()) {
-            var sb: StringBuilder = StringBuilder()
+            val sb: StringBuilder = StringBuilder()
             for (count in 0 until countriesList.size - 1) {
                 sb.append(countriesList[count].name).append(", ")
             }
@@ -156,7 +153,7 @@ class DetailScreen : Fragment(R.layout.fragment_detail_screen) {
         binding.toolbar.title = " "
     }
 
-    private fun setUpBookmark(bookmark: Boolean = false) {
+    private fun setUpBookmark(bookmark: Boolean) {
         val bookmarkState: StateListDrawable = ContextCompat.getDrawable(
             requireContext(), R.drawable.bookmark_icon
         ) as StateListDrawable

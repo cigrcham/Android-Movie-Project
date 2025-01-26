@@ -1,20 +1,16 @@
 package com.example.androidmoviesproject.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.androidmoviesproject.broadcast.NetworkStatus
 import com.example.androidmoviesproject.data.firebase.FirebaseAuthentication
 import com.example.androidmoviesproject.data.model.ModelMovie
 import com.example.androidmoviesproject.data.repository.Repository
-import com.example.androidmoviesproject.utils.Constants.DISCONNECT_NETWORK
 import com.example.androidmoviesproject.utils.StateListResult
 import com.example.androidmoviesproject.utils.StateResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
