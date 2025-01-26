@@ -2,7 +2,6 @@ package com.example.androidmoviesproject.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.androidmoviesproject.broadcast.NetworkStatus
 import com.example.androidmoviesproject.data.firebase.FirebaseAuthentication
 import com.example.androidmoviesproject.data.model.Account
 import com.example.androidmoviesproject.utils.Constants.DISCONNECT_NETWORK
@@ -16,8 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LogInViewModel @Inject constructor(
     private val firebaseAuth: FirebaseAuthentication,
-) :
-    ViewModel() {
+) : ViewModel() {
     fun loginAccount(
         account: Account,
         success: (FirebaseUser?) -> Unit = {},

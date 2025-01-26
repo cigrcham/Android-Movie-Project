@@ -24,7 +24,7 @@ import javax.inject.Singleton
 class ModuleMovieNetwork {
     companion object {
         private const val BASE_URL = "https://api.themoviedb.org/"
-        private const val ACCESS_KEY = BuildConfig.ACCESS_KEY_TBDB
+        private const val ACCESS_KEY = BuildConfig.KEY_API_MOVIE_TMDB
     }
 
     @Singleton

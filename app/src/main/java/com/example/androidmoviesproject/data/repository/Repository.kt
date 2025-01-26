@@ -6,7 +6,6 @@ import com.example.androidmoviesproject.utils.StateResult
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Call
 
-
 interface Repository {
     suspend fun getTrendingMovies(page: Int): Flow<StateResult>
     suspend fun getForYouMovies(page: Int): Flow<StateResult>
