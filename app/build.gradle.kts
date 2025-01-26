@@ -87,12 +87,13 @@ dependencies {
 
     implementation(libs.coil)
 
+    implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.play.services.auth)
+    implementation(libs.credential.googleid)
     implementation(libs.firebase.database.ktx)
-    implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics.ktx)
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.google.firebase.auth.ktx)

@@ -35,12 +35,11 @@
     <string name="recommend">Recommend</string>
     <string name="nowplaying">Now Playing</string>
     <string name="popular">Popular</string>
-    <string name="get_upComming">Get Comming</string>
+    <string name="get_upComing">Get Coming</string>
     <string name="viet_nam">Vietnamese</string>
     <string name="english">English</string>
     <string name="message">Message</string>
     <string name="continue_develop">The feature \'s continuing develop.</string>
-    <string name="ok">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="title_lang">Change language</string>
     <string name="message_lang">The system will restart.</string>
@@ -53,4 +52,6 @@
     <string name="log_out_message">Confirm log out?</string>
     <string name="bookmark">Bookmark</string>
 
+    <string name="all_ok">Confirm</string>
+    <string name="all_reconnect_network">Reconnection Network</string>
 </resources>

@@ -1,10 +1,9 @@
-package com.example.androidmoviesproject.ui.viewmodel
+package com.example.androidmoviesproject.presentation.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidmoviesproject.data.firebase.FirebaseAuthentication
 import com.example.androidmoviesproject.data.model.Account
-import com.example.androidmoviesproject.utils.Constants.DISCONNECT_NETWORK
 import com.example.androidmoviesproject.utils.Constants.NOT_HAVE_ACCOUNT
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LogInViewModel @Inject constructor(
+class LoginViewModel @Inject constructor(
     private val firebaseAuth: FirebaseAuthentication,
 ) : ViewModel() {
     fun loginAccount(
@@ -21,11 +20,7 @@ class LogInViewModel @Inject constructor(
         success: (FirebaseUser?) -> Unit = {},
         failure: (String?) -> Unit = {}
     ) = viewModelScope.launch(Dispatchers.IO) {
-//        if (networkStatus.isOnline()) {
-            firebaseAuth.loginAccount(account, success, failure)
-//        }
-//        else
-//            failure.invoke(DISCONNECT_NETWORK)
+        firebaseAuth.loginAccount(account, success, failure)
     }
 
     fun updateName(
@@ -34,10 +29,7 @@ class LogInViewModel @Inject constructor(
         success: () -> Unit = {},
         failure: (String?) -> Unit = {}
     ) = viewModelScope.launch(Dispatchers.IO) {
-//        if (networkStatus.isOnline())
-            firebaseAuth.updateName(user, displayName, success, failure)
-//        else
-//            failure.invoke(DISCONNECT_NETWORK)
+        firebaseAuth.updateName(user, displayName, success, failure)
     }
 
     fun updateEmail(
@@ -46,10 +38,7 @@ class LogInViewModel @Inject constructor(
         success: () -> Unit = {},
         failure: (String?) -> Unit = {}
     ) = viewModelScope.launch(Dispatchers.IO) {
-//        if (networkStatus.isOnline())
-            firebaseAuth.updateEmail(user, email, success, failure)
-//        else
-            failure.invoke(DISCONNECT_NETWORK)
+        firebaseAuth.updateEmail(user, email, success, failure)
     }
 
     fun updatePassword(
@@ -58,10 +47,7 @@ class LogInViewModel @Inject constructor(
         success: () -> Unit = {},
         failure: (String?) -> Unit = {}
     ) = viewModelScope.launch(Dispatchers.IO) {
-//        if (networkStatus.isOnline())
-            firebaseAuth.updatePassword(user, password, success, failure)
-//        else
-            failure.invoke(DISCONNECT_NETWORK)
+        firebaseAuth.updatePassword(user, password, success, failure)
     }
 
     fun sendResetEmail(
@@ -69,10 +55,7 @@ class LogInViewModel @Inject constructor(
         success: () -> Unit = {},
         failure: (String?) -> Unit = {}
     ) = viewModelScope.launch(Dispatchers.IO) {
-//        if (networkStatus.isOnline())
-            firebaseAuth.sendResetEmail(email)
-//        else
-            failure.invoke(DISCONNECT_NETWORK)
+        firebaseAuth.sendResetEmail(email)
     }
 
 
@@ -81,10 +64,7 @@ class LogInViewModel @Inject constructor(
         success: (FirebaseUser?) -> Unit = {},
         failure: (String?) -> Unit = {}
     ) = viewModelScope.launch(Dispatchers.IO) {
-//        if (networkStatus.isOnline()) {
-            firebaseAuth.firebaseAuthWithGoogle(idToken, success, failure)
-//        } else
-//            failure.invoke(DISCONNECT_NETWORK)
+        firebaseAuth.firebaseAuthWithGoogle(idToken, success, failure)
     }
 
     fun account(

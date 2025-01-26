@@ -6,7 +6,9 @@ object Constants {
     const val FIREBASE_AUTH_KEY = "firebase_auth"
     const val NETWORK_NOTIFICATION_ID: Int = 1
     val CATEGORY_MOVIE: List<Int> = listOf(
-        R.string.nowplaying, R.string.popular, R.string.get_upComming
+        R.string.nowplaying,
+        R.string.popular,
+        R.string.get_upComing,
     )
     const val NETWORK_STATUS: String = "hilt_network_status"
     const val DISCONNECT_NETWORK: String = "Reconnection Network"

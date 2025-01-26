@@ -29,12 +29,12 @@
     <string name="recommend">Đề xuất</string>
     <string name="nowplaying">Đang Phát</string>
     <string name="popular">Phổ Biến</string>
-    <string name="get_upComming">Mới Nhất</string>
+    <string name="get_upComing">Mới Nhất</string>
     <string name="viet_nam">Việt Nam</string>
     <string name="english">English</string>
     <string name="message">Tin nhắn</string>
     <string name="continue_develop">Tính năng đang tiếp tục phát triển.</string>
-    <string name="ok">Xác nhận</string>
+    <string name="all_ok">Xác nhận</string>
     <string name="cancel">Hủy</string>
     <string name="title_lang">Thay đổi ngôn ngữ</string>
     <string name="message_lang">Hệ thống sẽ khởi động lại.</string>
@@ -45,4 +45,8 @@
     <string name="log_out">Đăng xuất</string>
     <string name="log_out_title">Đăng xuất</string>
     <string name="log_out_message">Xác nhận đăng xuất?</string>
+
+    <string name="bookmark">Đánh dấu</string>
+
+    <string name="all_reconnect_network">Kết nối lại mạng</string>
 </resources>

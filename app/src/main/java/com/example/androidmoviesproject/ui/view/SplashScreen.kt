@@ -1,19 +1,18 @@
 package com.example.androidmoviesproject.ui.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavDestination
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.example.androidmoviesproject.R
 import com.example.androidmoviesproject.broadcast.NetworkStatus
 import com.example.androidmoviesproject.databinding.FragmentSplashScreenBinding
-import com.example.androidmoviesproject.ui.viewmodel.LogInViewModel
+import com.example.androidmoviesproject.presentation.login.LoginViewModel
 import com.example.androidmoviesproject.utils.Constants.DISCONNECT_NETWORK
 import com.example.androidmoviesproject.utils.Constants.NETWORK_STATUS
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +22,7 @@ import javax.inject.Named
 @AndroidEntryPoint
 class SplashScreen : Fragment() {
     private lateinit var binding: FragmentSplashScreenBinding
-    private val viewModel: LogInViewModel by viewModels()
+    private val viewModel: LoginViewModel by viewModels()
 
     @Inject
     @Named(NETWORK_STATUS)
@@ -49,7 +48,7 @@ class SplashScreen : Fragment() {
                 }
             })
         } else {
-            Toast.makeText(requireContext(), "$DISCONNECT_NETWORK", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.all_reconnect_network), Toast.LENGTH_SHORT).show()
             val destination: NavDirections =
                 SplashScreenDirections.actionSplashScreenToHomeFragment(false)
             findNavController().navigate(destination)
